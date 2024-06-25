@@ -1,11 +1,14 @@
 // src/components/Header.tsx
 import React from 'react';
+import Image from 'next/image';
 
 const Header: React.FC = () => {
   return (
-    <header className='bg-gray-800 p-4 text-white text-center'>
-      <h1 className='text-2xl'>VOTEGPT</h1>
-      <span className='text-sm'>KNOW YOUR CANDIDATES, LEAD THE CHANGE</span>
+    <header className=' p-4 text-white text-center flex flex-col items-center my-5'>
+      <Image src='/votegpt_logo.jpg' alt='logo' width={200} height={200} />
+      <span className='text-black'>
+        Know your candidates, lead the change
+      </span>
     </header>
   );
 };

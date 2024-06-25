@@ -7,8 +7,8 @@ import Footer from './components/Footer';
 const Home: React.FC = () => {
   return (
     <div className='flex flex-col min-h-screen justify-between'>
-      <Header />
-      <main className='flex justify-center'>
+      <main className='flex flex-col items-center justify-center'>
+        <Header />
         <SearchBar />
       </main>
       <Footer />
