@@ -67,14 +67,6 @@ export default function CountrySelect() {
           />
         )}
       />
-      <SearchIcon
-        sx={{
-          color: 'action.active',
-          height: 40,
-          width: 40,
-        }}
-        onClick={() => handleOpen()}
-      />
       <Modal
         open={open}
         onClose={handleClose}
