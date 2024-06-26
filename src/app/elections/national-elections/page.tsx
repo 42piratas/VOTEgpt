@@ -24,7 +24,7 @@ const NationalElections: React.FC = () => {
           </div>
           <span className='text-sm'>National Elections 03 may 2025</span>
         </div>
-        <div className='grid grid-cols-3 gap-4 mb-4'>
+        <div>
           {CandidatesPresidentialELections.map((candidate, index) => (
             <CandidateBox key={index} candidate={candidate} />
           ))}
