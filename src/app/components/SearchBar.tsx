@@ -6,14 +6,13 @@ import Autocomplete from '@mui/material/Autocomplete';
 import SearchIcon from '@mui/icons-material/Search';
 import { Modal, Typography } from '@mui/material';
 import { countries } from '../data/Countries';
-import CountryType from '../types/CountryType';
+import CountryType from '../Common/types/CountryType';
 import Link from 'next/link';
 import { ElectionLink } from './ElectionsLink';
 import Image from 'next/image';
 
 export default function CountrySelect() {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const style = {
@@ -32,9 +31,12 @@ export default function CountrySelect() {
     React.useState<CountryType | null>(null);
 
   return (
-    <div className='flex items-center gap-2'>
+    <div className='flex flex-col items-center gap-2'>
       <Autocomplete
-        onChange={(event, value) => setCountrySelected(value)}
+        onChange={(event, newValue) => {
+          setCountrySelected(newValue);
+          setOpen(true);
+        }}
         id='country-select-demo'
         sx={{ width: 300 }}
         options={countries}
@@ -67,6 +69,9 @@ export default function CountrySelect() {
           />
         )}
       />
+      <Link href='#' className='text-[12px] hover:text-slate-500'>
+        Learn how it works
+      </Link>
       <Modal
         open={open}
         onClose={handleClose}
