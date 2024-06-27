@@ -1,9 +1,8 @@
 // pages/index.tsx
 import React from 'react';
-import Header from './components/Header';
-import SearchBar from './components/SearchBar';
-import Footer from './components/Footer';
-import BadgesArea from './components/Badges';
+import Header from '@common/components/Header';
+import SearchBar from '@common/components/SearchBar';
+import Footer from '@common/components/Footer';
 
 const Home: React.FC = () => {
   return (
@@ -11,7 +10,6 @@ const Home: React.FC = () => {
       <main className='flex flex-col items-center justify-center gap-8 my-auto'>
         <Header />
         <SearchBar />
-        <BadgesArea />
       </main>
       <Footer />
     </div>

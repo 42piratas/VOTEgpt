@@ -3,10 +3,9 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import SearchIcon from '@mui/icons-material/Search';
 import { Modal, Typography } from '@mui/material';
-import { countries } from '../data/Countries';
-import CountryType from '../Common/types/CountryType';
+import { countries } from '@common/data/Countries';
+import CountryType from '@common/types/CountryType';
 import Link from 'next/link';
 import { ElectionLink } from './ElectionsLink';
 import Image from 'next/image';
@@ -69,7 +68,10 @@ export default function CountrySelect() {
           />
         )}
       />
-      <Link href='#' className='text-[12px] hover:text-slate-500'>
+      <Link
+        href='#'
+        className='text-lg text-[#2592BF] underline hover:text-[#1a749b]'
+      >
         Learn how it works
       </Link>
       <Modal
