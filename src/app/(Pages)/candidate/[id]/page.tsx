@@ -1,6 +1,6 @@
-import Footer from '@components/Footer';
-import { HeaderSecondary } from '@components/Header';
-import { CandidateInfo } from '@data/CandidateData';
+import Footer from '@/app/common/components/Footer';
+import { HeaderSecondary } from '@/app/common/components/Header';
+import { CandidateInfo } from '@/app/common/data/CandidateData';
 import Image from 'next/image';
 
 export default function CandidatePage({ params }: { params: { id: string } }) {

@@ -4,7 +4,7 @@ import BadgesArea from './Badges';
 
 const Footer: React.FC = () => {
   return (
-    <footer className='flex flex-col items-center gap-2 w-full bg-white fixed bottom-0'>
+    <footer className='flex flex-col items-center gap-2 w-full bg-white bottom-0'>
       <BadgesArea />
       <div className='flex flex-col gap-2 w-full items-center border-t p-4'>
         <p className='gap-5'>
