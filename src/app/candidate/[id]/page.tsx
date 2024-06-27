@@ -1,9 +1,10 @@
-import Footer from '@/app/common/components/Footer';
-import { HeaderSecondary } from '@/app/common/components/Header';
-import { CandidateInfo } from '@/app/common/data/CandidateData';
+import Footer from '@components/Footer';
+import { HeaderSecondary } from '@components/Header';
+import { CandidateInfo } from '@data/CandidateData';
 import Image from 'next/image';
 
 export default function CandidatePage({ params }: { params: { id: string } }) {
+  const realId = parseInt(params.id) - 1;
   return (
     <>
       <HeaderSecondary />
@@ -12,29 +13,31 @@ export default function CandidatePage({ params }: { params: { id: string } }) {
           <Image
             width={200}
             height={200}
-            src={CandidateInfo[0].image}
-            alt={CandidateInfo[0].name}
+            src={CandidateInfo[realId].image}
+            alt={CandidateInfo[realId].name}
             className='object-contain rounded'
           />
           <div>
-            <h1 className='text-3xl font-bold'>{CandidateInfo[0].name}</h1>
-            <p className='text-gray-600'>{`Born: ${CandidateInfo[0].birth.year}, ${CandidateInfo[0].birth.place}`}</p>
-            <p className='text-gray-600'>{`Age: ${CandidateInfo[0].age}`}</p>
-            <p className='text-gray-600'>{`Education: ${CandidateInfo[0].education}`}</p>
+            <h1 className='text-3xl font-bold'>{CandidateInfo[realId].name}</h1>
+            <p className='text-gray-600'>{`Born: ${CandidateInfo[realId].birth.year}, ${CandidateInfo[realId].birth.place}`}</p>
+            <p className='text-gray-600'>{`Age: ${CandidateInfo[realId].age}`}</p>
+            <p className='text-gray-600'>{`Education: ${CandidateInfo[realId].education}`}</p>
           </div>
         </div>
         <div className='mb-4'>
           <h2 className='text-2xl font-semibold'>Biography</h2>
-          <p className='text-gray-700 mt-2'>{CandidateInfo[0].bio}</p>
+          <p className='text-gray-700 mt-2'>{CandidateInfo[realId].bio}</p>
         </div>
         <div className='mb-4'>
           <h2 className='text-2xl font-semibold'>Current Party</h2>
-          <p className='text-gray-700 mt-2'>{CandidateInfo[0].party.current}</p>
+          <p className='text-gray-700 mt-2'>
+            {CandidateInfo[realId].party.current}
+          </p>
         </div>
         <div className='mb-4'>
           <h2 className='text-2xl font-semibold'>Previous Party</h2>
           <p className='text-gray-700 mt-2'>
-            {CandidateInfo[0].party.previous}
+            {CandidateInfo[realId].party.previous}
           </p>
         </div>
         <div className='mb-4'>
@@ -42,100 +45,104 @@ export default function CandidatePage({ params }: { params: { id: string } }) {
             Previous Political Experience
           </h2>
           <p className='text-gray-700 mt-2'>
-            {CandidateInfo[0].previousPoliticalExperience}
+            {CandidateInfo[realId].previousPoliticalExperience}
           </p>
         </div>
         <div className='mb-4'>
           <h2 className='text-2xl font-semibold'>Keywords</h2>
           <p className='text-gray-700 mt-2'>
-            {CandidateInfo[0].keywords.join(', ')}
+            {CandidateInfo[realId].keywords.join(', ')}
           </p>
         </div>
         <div className='mb-4'>
           <h2 className='text-2xl font-semibold'>Notorious For</h2>
           <p className='text-gray-700 mt-2'>
-            {CandidateInfo[0].notoriousFor.join(', ')}
+            {CandidateInfo[realId].notoriousFor.join(', ')}
           </p>
         </div>
         <div className='mb-4'>
           <h2 className='text-2xl font-semibold'>Platform</h2>
-          <p className='text-gray-700 mt-2'>{CandidateInfo[0].platform}</p>
+          <p className='text-gray-700 mt-2'>{CandidateInfo[realId].platform}</p>
         </div>
         <div className='mb-4'>
           <h2 className='text-2xl font-semibold'>Endorsements</h2>
           <p className='text-gray-700 mt-2'>
-            {CandidateInfo[0].endorsements.join(', ')}
+            {CandidateInfo[realId].endorsements.join(', ')}
           </p>
         </div>
         <div className='mb-4'>
           <h2 className='text-2xl font-semibold'>Funding Sources</h2>
           <p className='text-gray-700 mt-2'>
-            {CandidateInfo[0].fundingSources.join(', ')}
+            {CandidateInfo[realId].fundingSources.join(', ')}
           </p>
         </div>
         <div className='mb-4'>
           <h2 className='text-2xl font-semibold'>Criminal Records</h2>
           <p className='text-gray-700 mt-2'>
-            {CandidateInfo[0].criminalRecords.join(', ')}
+            {CandidateInfo[realId].criminalRecords.join(', ')}
           </p>
         </div>
         <div className='flex flex-col mb-4'>
           <h2 className='text-2xl font-semibold'>Policies</h2>
           <p>
-            <strong>Abortion:</strong> {CandidateInfo[0].policies.abortion}
+            <strong>Abortion:</strong> {CandidateInfo[realId].policies.abortion}
           </p>
           <p>
-            <strong>Health Care:</strong> {CandidateInfo[0].policies.healthcare}
+            <strong>Health Care:</strong>{' '}
+            {CandidateInfo[realId].policies.healthcare}
           </p>
           <p>
-            <strong>Economy:</strong> {CandidateInfo[0].policies.economy}
+            <strong>Economy:</strong> {CandidateInfo[realId].policies.economy}
           </p>
           <p>
             <strong>Immigration:</strong>{' '}
-            {CandidateInfo[0].policies.immigration}
+            {CandidateInfo[realId].policies.immigration}
           </p>
           <p>
-            <strong>Gun Control:</strong> {CandidateInfo[0].policies.gunControl}
+            <strong>Gun Control:</strong>{' '}
+            {CandidateInfo[realId].policies.gunControl}
           </p>
           <p>
             <strong>Climate Change:</strong>{' '}
-            {CandidateInfo[0].policies.climateChange}
+            {CandidateInfo[realId].policies.climateChange}
           </p>
           <p>
-            <strong>Education:</strong> {CandidateInfo[0].policies.education}
+            <strong>Education:</strong>{' '}
+            {CandidateInfo[realId].policies.education}
           </p>
           <p>
-            <strong>Taxes:</strong> {CandidateInfo[0].policies.taxes}
+            <strong>Taxes:</strong> {CandidateInfo[realId].policies.taxes}
           </p>
           <p>
             <strong>LGBTQ Rights:</strong>{' '}
-            {CandidateInfo[0].policies.lgbtqRights}
+            {CandidateInfo[realId].policies.lgbtqRights}
           </p>
           <p>
             <strong>Foreign Policy:</strong>{' '}
-            {CandidateInfo[0].policies.foreignPolicy}
+            {CandidateInfo[realId].policies.foreignPolicy}
           </p>
           <p>
-            <strong>Drug Policy:</strong> {CandidateInfo[0].policies.drugPolicy}
+            <strong>Drug Policy:</strong>{' '}
+            {CandidateInfo[realId].policies.drugPolicy}
           </p>
           <p>
             <strong>Criminal Justice Reform:</strong>{' '}
-            {CandidateInfo[0].policies.criminalJusticeReform}
+            {CandidateInfo[realId].policies.criminalJusticeReform}
           </p>
           <p>
             <strong>Military Spending:</strong>{' '}
-            {CandidateInfo[0].policies.militarySpending}
+            {CandidateInfo[realId].policies.militarySpending}
           </p>
           <p>
             <strong>Voting Rights:</strong>{' '}
-            {CandidateInfo[0].policies.votingRights}
+            {CandidateInfo[realId].policies.votingRights}
           </p>
         </div>
         <div className='flex flex-col mb-4'>
           <h2 className='text-2xl font-semibold'>Links</h2>
           <a
             className='text-[#0073e6] underline hover:text-[#0056b3]'
-            href={CandidateInfo[0].online.wikipedia}
+            href={CandidateInfo[realId].online.wikipedia}
             target='_blank'
             rel='noreferrer'
           >
@@ -143,7 +150,7 @@ export default function CandidatePage({ params }: { params: { id: string } }) {
           </a>
           <a
             className='text-[#0073e6] underline hover:text-[#0056b3]'
-            href={CandidateInfo[0].online.officialWebsite}
+            href={CandidateInfo[realId].online.officialWebsite}
             target='_blank'
             rel='noreferrer'
           >
@@ -151,7 +158,7 @@ export default function CandidatePage({ params }: { params: { id: string } }) {
           </a>
           <a
             className='text-[#0073e6] underline hover:text-[#0056b3]'
-            href={CandidateInfo[0].online.truthSocial}
+            href={CandidateInfo[realId].online.truthSocial}
             target='_blank'
             rel='noreferrer'
           >

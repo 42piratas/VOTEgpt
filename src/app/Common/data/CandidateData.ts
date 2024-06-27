@@ -1,4 +1,4 @@
-import { Bio, Candidate } from '@/app/common/types/CandidateType';
+import { Bio, Candidate } from '../types/CandidateType';
 
 export const CandidatesPresidentialELections: Candidate[] = [
   {
@@ -8,7 +8,7 @@ export const CandidatesPresidentialELections: Candidate[] = [
     education: 'Bachelor of Science in Economics, 1968',
     age: 78,
     partyCurrent: 'Republican since 2012',
-    partyPrevious: 'Republican (1987–1999, 2009–2011)',
+    partyPrevious: 'Republican (1987-1999, 2009-2011)',
     links: [
       {
         wikipedia: 'https://en.wikipedia.org/wiki/Donald_Trump',
@@ -57,7 +57,256 @@ export const CandidateInfo: Bio[] = [
     party: {
       current: 'Republican',
       since: 2012,
-      previous: 'Republican (1987–1999, 2009–2011)',
+      previous: 'Republican (1987-1999, 2009-2011)',
+    },
+    online: {
+      wikipedia: 'Wikipedia',
+      officialWebsite: 'Official Website',
+      truthSocial: 'Truth Social',
+    },
+    keywords: [
+      'Impeachment',
+      'Real Estate',
+      'Election Controversy',
+      'Immigration',
+      'Trade Policies',
+    ],
+    bio: '45th U.S. president (2017-2021), known for real estate business and TV fame. His term saw two impeachments and a 2020 election loss to Joe Biden',
+    notoriousFor: [
+      'his presidency',
+      'two impeachments',
+      'efforts to overturn the 2020 election results',
+    ],
+    platform:
+      'tax cuts and deregulation, border wall and strict immigration policies, renegotiating trade deals, repeal and replace Obamacare, “America First” foreign policy.',
+    endorsements: [
+      'Rudy Giuliani',
+      'Newt Gingrich',
+      'Jerry Falwell Jr',
+      'various Republican governors',
+      'conservative business leaders',
+    ],
+    fundingSources: [
+      'Personal wealth',
+      'donations',
+      'fundraising events',
+      'Political Action Committees (PACs)',
+      'Small Dollar Donations',
+    ],
+    previousPoliticalExperience:
+      'before his presidency, he had limited political experience, briefly running in the 2000 Reform Party primaries and considering presidential bids in 1988, 2004, and 2012',
+    criminalRecords: [
+      'two impeachments',
+      'charges for mishandling classified documents',
+      'falsifying business records',
+      'attempting to overturn the 2020 election',
+    ],
+    policies: {
+      abortion: 'Anti-abortion',
+      healthcare:
+        'Opposed to the Affordable Care Act, supports private healthcare',
+      economy: 'Pro-tax cuts, deregulation, and promoting American businesses',
+      immigration:
+        'Supports stricter immigration laws and building a border wall',
+      gunControl:
+        'Supports the Second Amendment, against many gun control measures',
+      climateChange: 'Skeptical, withdrew the U.S. from the Paris Agreement',
+      education:
+        'Supports school choice and reducing federal role in education',
+      taxes:
+        'Advocates for tax cuts, particularly for businesses and high-income individuals',
+      lgbtqRights:
+        'Mixed; rolled back some protections but expressed support for same-sex marriage',
+      foreignPolicy: '"America First" approach, prioritizes national interests',
+      drugPolicy:
+        'Tough on drugs, supports stricter penalties and anti-drug initiatives',
+      criminalJusticeReform:
+        'Signed the First Step Act, supports prison reform',
+      militarySpending: 'Supports increased military spending',
+      votingRights:
+        'Opposed expansive voting reforms, raised concerns about election security',
+    },
+  },
+  {
+    id: 2,
+    image: '/Jair_Bolsonaro_official_portrait.jpg',
+    name: 'Jair Messias Bolsonaro',
+    age: 69,
+    birth: {
+      year: 1946,
+      place: 'New York City, U.S',
+    },
+    education: 'Bachelor of Science in Economics, 1968',
+    party: {
+      current: 'Republican',
+      since: 2012,
+      previous: 'Republican (1987-1999, 2009-2011)',
+    },
+    online: {
+      wikipedia: 'Wikipedia',
+      officialWebsite: 'Official Website',
+      truthSocial: 'Truth Social',
+    },
+    keywords: [
+      'Impeachment',
+      'Real Estate',
+      'Election Controversy',
+      'Immigration',
+      'Trade Policies',
+    ],
+    bio: '45th U.S. president (2017-2021), known for real estate business and TV fame. His term saw two impeachments and a 2020 election loss to Joe Biden',
+    notoriousFor: [
+      'his presidency',
+      'two impeachments',
+      'efforts to overturn the 2020 election results',
+    ],
+    platform:
+      'tax cuts and deregulation, border wall and strict immigration policies, renegotiating trade deals, repeal and replace Obamacare, “America First” foreign policy.',
+    endorsements: [
+      'Rudy Giuliani',
+      'Newt Gingrich',
+      'Jerry Falwell Jr',
+      'various Republican governors',
+      'conservative business leaders',
+    ],
+    fundingSources: [
+      'Personal wealth',
+      'donations',
+      'fundraising events',
+      'Political Action Committees (PACs)',
+      'Small Dollar Donations',
+    ],
+    previousPoliticalExperience:
+      'before his presidency, he had limited political experience, briefly running in the 2000 Reform Party primaries and considering presidential bids in 1988, 2004, and 2012',
+    criminalRecords: [
+      'two impeachments',
+      'charges for mishandling classified documents',
+      'falsifying business records',
+      'attempting to overturn the 2020 election',
+    ],
+    policies: {
+      abortion: 'Anti-abortion',
+      healthcare:
+        'Opposed to the Affordable Care Act, supports private healthcare',
+      economy: 'Pro-tax cuts, deregulation, and promoting American businesses',
+      immigration:
+        'Supports stricter immigration laws and building a border wall',
+      gunControl:
+        'Supports the Second Amendment, against many gun control measures',
+      climateChange: 'Skeptical, withdrew the U.S. from the Paris Agreement',
+      education:
+        'Supports school choice and reducing federal role in education',
+      taxes:
+        'Advocates for tax cuts, particularly for businesses and high-income individuals',
+      lgbtqRights:
+        'Mixed; rolled back some protections but expressed support for same-sex marriage',
+      foreignPolicy: '"America First" approach, prioritizes national interests',
+      drugPolicy:
+        'Tough on drugs, supports stricter penalties and anti-drug initiatives',
+      criminalJusticeReform:
+        'Signed the First Step Act, supports prison reform',
+      militarySpending: 'Supports increased military spending',
+      votingRights:
+        'Opposed expansive voting reforms, raised concerns about election security',
+    },
+  },
+  {
+    id: 3,
+    image: '/Vladmir_Putin_official_portrait.jpg',
+    name: 'Vladimir Vladimirovitch Putin',
+    age: 71,
+    birth: {
+      year: 1946,
+      place: 'New York City, U.S',
+    },
+    education: 'Bachelor of Science in Economics, 1968',
+    party: {
+      current: 'Republican',
+      since: 2012,
+      previous: 'Republican (1987-1999, 2009-2011)',
+    },
+    online: {
+      wikipedia: 'Wikipedia',
+      officialWebsite: 'Official Website',
+      truthSocial: 'Truth Social',
+    },
+    keywords: [
+      'Impeachment',
+      'Real Estate',
+      'Election Controversy',
+      'Immigration',
+      'Trade Policies',
+    ],
+    bio: '45th U.S. president (2017-2021), known for real estate business and TV fame. His term saw two impeachments and a 2020 election loss to Joe Biden',
+    notoriousFor: [
+      'his presidency',
+      'two impeachments',
+      'efforts to overturn the 2020 election results',
+    ],
+    platform:
+      'tax cuts and deregulation, border wall and strict immigration policies, renegotiating trade deals, repeal and replace Obamacare, “America First” foreign policy.',
+    endorsements: [
+      'Rudy Giuliani',
+      'Newt Gingrich',
+      'Jerry Falwell Jr',
+      'various Republican governors',
+      'conservative business leaders',
+    ],
+    fundingSources: [
+      'Personal wealth',
+      'donations',
+      'fundraising events',
+      'Political Action Committees (PACs)',
+      'Small Dollar Donations',
+    ],
+    previousPoliticalExperience:
+      'before his presidency, he had limited political experience, briefly running in the 2000 Reform Party primaries and considering presidential bids in 1988, 2004, and 2012',
+    criminalRecords: [
+      'two impeachments',
+      'charges for mishandling classified documents',
+      'falsifying business records',
+      'attempting to overturn the 2020 election',
+    ],
+    policies: {
+      abortion: 'Anti-abortion',
+      healthcare:
+        'Opposed to the Affordable Care Act, supports private healthcare',
+      economy: 'Pro-tax cuts, deregulation, and promoting American businesses',
+      immigration:
+        'Supports stricter immigration laws and building a border wall',
+      gunControl:
+        'Supports the Second Amendment, against many gun control measures',
+      climateChange: 'Skeptical, withdrew the U.S. from the Paris Agreement',
+      education:
+        'Supports school choice and reducing federal role in education',
+      taxes:
+        'Advocates for tax cuts, particularly for businesses and high-income individuals',
+      lgbtqRights:
+        'Mixed; rolled back some protections but expressed support for same-sex marriage',
+      foreignPolicy: '"America First" approach, prioritizes national interests',
+      drugPolicy:
+        'Tough on drugs, supports stricter penalties and anti-drug initiatives',
+      criminalJusticeReform:
+        'Signed the First Step Act, supports prison reform',
+      militarySpending: 'Supports increased military spending',
+      votingRights:
+        'Opposed expansive voting reforms, raised concerns about election security',
+    },
+  },
+  {
+    id: 4,
+    image: '/Kim_Jong-un_official_portrait.jpg',
+    name: 'Kim Jong Un',
+    age: 40,
+    birth: {
+      year: 1946,
+      place: 'New York City, U.S',
+    },
+    education: 'Bachelor of Science in Economics, 1968',
+    party: {
+      current: 'Republican',
+      since: 2012,
+      previous: 'Republican (1987-1999, 2009-2011)',
     },
     online: {
       wikipedia: 'Wikipedia',
