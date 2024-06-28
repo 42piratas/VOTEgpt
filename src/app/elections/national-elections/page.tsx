@@ -9,7 +9,7 @@ const NationalElections: React.FC = () => {
   return (
     <div className='flex flex-col min-h-screen justify-normal'>
       <HeaderSecondary />
-      <main className='flex flex-col items-center top-0 min-h-[74vh]'>
+      <main className='flex flex-col items-center top-0 min-h-[74vh] max-w-screen-lg mx-auto'>
         <div className='flex flex-col items-center gap-2 my-2'>
           <div className='flex gap-2'>
             <Image
@@ -24,7 +24,7 @@ const NationalElections: React.FC = () => {
           </div>
           <span className='text-xl'>National Elections 03 may 2025</span>
         </div>
-        <div className='grid gap-4 mb-16 lg:grid-cols-2 lg:overflow-auto'>
+        <div className='grid gap-4 lg:grid-cols-2 lg:overflow-auto'>
           {CandidateInfo.map((candidate, index) => (
             <CandidateBox key={index} candidate={candidate} />
           ))}
