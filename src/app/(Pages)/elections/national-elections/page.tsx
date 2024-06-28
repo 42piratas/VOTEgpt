@@ -9,7 +9,7 @@ const NationalElections: React.FC = () => {
   return (
     <div className='flex flex-col min-h-screen justify-normal'>
       <HeaderSecondary />
-      <main className='flex flex-col items-center top-0 min-h-[77vh]'>
+      <main className='flex flex-col items-center top-0 min-h-[74vh]'>
         <div className='flex flex-col items-center gap-2 my-2'>
           <div className='flex gap-2'>
             <Image
