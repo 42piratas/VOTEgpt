@@ -291,33 +291,6 @@ export default function CandidatePage({ params }: { params: { id: string } }) {
             </Link>
           </p>
         </div>
-        <div className='flex flex-col mb-4'>
-          <h2 className='text-2xl font-semibold'>Links</h2>
-          <a
-            className='text-[#0073e6] underline hover:text-[#0056b3]'
-            href={CandidateInfo[realId].online.wikipedia}
-            target='_blank'
-            rel='noreferrer'
-          >
-            Wikipedia
-          </a>
-          <a
-            className='text-[#0073e6] underline hover:text-[#0056b3]'
-            href={CandidateInfo[realId].online.officialWebsite}
-            target='_blank'
-            rel='noreferrer'
-          >
-            Official Website
-          </a>
-          <a
-            className='text-[#0073e6] underline hover:text-[#0056b3]'
-            href={CandidateInfo[realId].online.truthSocial}
-            target='_blank'
-            rel='noreferrer'
-          >
-            Social
-          </a>
-        </div>
       </div>
       <Footer />
     </div>
