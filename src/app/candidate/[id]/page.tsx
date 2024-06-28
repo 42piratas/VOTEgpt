@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import { HeaderSecondary } from '../../../common/components/Header';
-import { CandidateInfo } from '../../../common/data/CandidateData';
-import Footer from '../../../common/components/Footer';
+import { HeaderSecondary } from '../../common/components/Header';
+import { CandidateInfo } from '../../common/data/CandidateData';
+import Footer from '../../common/components/Footer';
 
 export default function CandidatePage({ params }: { params: { id: string } }) {
   const realId = parseInt(params.id) - 1;
