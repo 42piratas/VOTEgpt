@@ -12,12 +12,6 @@ const Footer: React.FC = () => {
           <a href='https://www.akasha.org/' className='text-[#2592BF] underline hover:text-[#1a749b]' target='_blank' rel='noreferrer'>
             @AKASHA{' '}
           </a>
-          <a href='https://www.mozilla.org/' className='text-[#2592BF] underline hover:text-[#1a749b]' target='_blank' rel='noreferrer'>
-            @Mozilla{' '}
-          </a>
-          <a href='https://ethereum.org/' className='text-[#2592BF] underline hover:text-[#1a749b]' target='_blank' rel='noreferrer'>
-            @Ethereum
-          </a>
         </p>
       </div>
     </footer>
