@@ -25,7 +25,7 @@ const Header: React.FC = () => {
 export const HeaderSecondary: React.FC = () => {
   return (
     <Link href='/'>
-      <div className=' p-4 text-white text-center flex flex-col items-center gap-4'>
+      <div className=' p-4 text-white flex flex-col gap-4'>
         <Image
           loading='eager'
           src='/votegpt_logo.jpg'
