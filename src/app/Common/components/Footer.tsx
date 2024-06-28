@@ -1,6 +1,6 @@
 // src/components/Footer.tsx
 import React from 'react';
-import BadgesArea from './Badges';
+import BadgesArea from '../components/Badges';
 
 const Footer: React.FC = () => {
   return (
