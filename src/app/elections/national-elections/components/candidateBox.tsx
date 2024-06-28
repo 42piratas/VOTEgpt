@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { Bio } from '../../../common/types/CandidateType';
+import { Bio } from '../../../Common/types/CandidateType';
 
 // const CandidateBox: React.FC<{ candidate: Bio }> = ({ candidate }) => {
 //   return (

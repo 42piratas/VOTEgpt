@@ -2,9 +2,9 @@
 import React from 'react';
 import Image from 'next/image';
 import CandidateBox from './components/candidateBox';
-import { HeaderSecondary } from '../../common/components/Header';
-import Footer from '../../common/components/Footer';
-import { CandidateInfo } from '../../common/data/CandidateData';
+import { HeaderSecondary } from '../../Common/components/Header';
+import Footer from '../../Common/components/Footer';
+import { CandidateInfo } from '../../Common/data/CandidateData';
 const NationalElections: React.FC = () => {
   return (
     <div className='flex flex-col min-h-screen justify-normal'>

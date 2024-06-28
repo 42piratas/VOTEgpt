@@ -5,10 +5,10 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Modal, Typography } from '@mui/material';
 import Link from 'next/link';
-import { ElectionLink } from './ElectionsLink';
 import Image from 'next/image';
-import { countries } from '../data/Countries';
 import CountryType from '../types/CountryType';
+import { countries } from '../data/Countries';
+import { ElectionLink } from './ElectionsLink';
 
 export default function CountrySelect() {
   const [open, setOpen] = React.useState(false);

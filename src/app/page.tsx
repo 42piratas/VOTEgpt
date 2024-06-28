@@ -1,8 +1,8 @@
 // pages/index.tsx
 import React from 'react';
-import Header from './common/components/Header';
-import SearchBar from './common/components/SearchBar';
-import Footer from './common/components/Footer';
+import Header from './Common/components/Header';
+import SearchBar from './Common/components/SearchBar';
+import Footer from './Common/components/Footer';
 
 const Home: React.FC = () => {
   return (
