@@ -1,12 +1,12 @@
-import Footer from '@/app/common/components/Footer';
-import { HeaderSecondary } from '@/app/common/components/Header';
-import { CandidateInfo } from '@/app/common/data/CandidateData';
 import Image from 'next/image';
+import { HeaderSecondary } from '../../../common/components/Header';
+import { CandidateInfo } from '../../../common/data/CandidateData';
+import Footer from '../../../common/components/Footer';
 
 export default function CandidatePage({ params }: { params: { id: string } }) {
   const realId = parseInt(params.id) - 1;
   return (
-    <>
+    <div className='flex flex-col min-h-screen justify-normal'>
       <HeaderSecondary />
       <div className='max-w-4xl mx-auto p-4 mb-28'>
         <div className='flex items-center space-x-4 mb-4'>
@@ -167,6 +167,6 @@ export default function CandidatePage({ params }: { params: { id: string } }) {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }

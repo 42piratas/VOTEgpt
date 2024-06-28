@@ -4,11 +4,11 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Modal, Typography } from '@mui/material';
-import { countries } from '@/app/common/data/Countries';
-import CountryType from '@/app/common/types/CountryType';
 import Link from 'next/link';
 import { ElectionLink } from './ElectionsLink';
 import Image from 'next/image';
+import { countries } from '../data/Countries';
+import CountryType from '../types/CountryType';
 
 export default function CountrySelect() {
   const [open, setOpen] = React.useState(false);
@@ -51,8 +51,9 @@ export default function CountrySelect() {
               loading='lazy'
               width={20}
               height={20}
-              src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-              alt=''
+              src={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png`}
+              alt={option.label}
+              title={option.label}
             />
             {option.label} ({option.code})
           </Box>
@@ -93,8 +94,9 @@ export default function CountrySelect() {
                   loading='lazy'
                   width='50'
                   height='50'
-                  src={`https://flagcdn.com/w20/${countrySelected?.code.toLowerCase()}.png`}
-                  alt=''
+                  src={`https://flagcdn.com/w40/${countrySelected?.code.toLowerCase()}.png`}
+                  alt={countrySelected.label}
+                  title={countrySelected.label}
                 />
                 <Typography id='modal-modal-title' variant='h6' component='h2'>
                   {countrySelected?.label}

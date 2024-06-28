@@ -1,10 +1,10 @@
 // pages/index.tsx
 import React from 'react';
-import { HeaderSecondary } from '@/app/common/components/Header';
-import Footer from '@/app/common/components/Footer';
 import Image from 'next/image';
 import CandidateBox from './components/candidateBox';
 import { CandidateInfo } from '../../../common/data/CandidateData';
+import { HeaderSecondary } from '../../../common/components/Header';
+import Footer from '../../../common/components/Footer';
 const NationalElections: React.FC = () => {
   return (
     <div className='flex flex-col min-h-screen justify-normal'>
@@ -16,8 +16,9 @@ const NationalElections: React.FC = () => {
               loading='lazy'
               width={80}
               height={50}
-              src={`https://flagcdn.com/w20/ro.png`}
+              src='https://flagcdn.com/w1280/ro.png'
               alt='Romania Flag'
+              title='Romania Flag'
             />
             <h1 className='text-5xl'>Romania</h1>
           </div>

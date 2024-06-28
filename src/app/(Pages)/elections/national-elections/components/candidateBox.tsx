@@ -1,9 +1,9 @@
 'use client';
 
-import { Bio } from '@/app/common/types/CandidateType';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { Bio } from '../../../../common/types/CandidateType';
 
 // const CandidateBox: React.FC<{ candidate: Bio }> = ({ candidate }) => {
 //   return (

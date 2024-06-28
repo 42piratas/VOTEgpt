@@ -16,13 +16,7 @@
       {
         "name": "next"
       }
-    ],
-    "paths": {
-      "@/*": ["./src/*"],
-      "@common/*": ["./src/app/common/*"],
-      "@components/*": ["./src/app/common/components/*"],
-      "@data/*": ["./src/app/common/data/*"]
-    }
+    ]
   },
   "include": [
     "next-env.d.ts",
