@@ -8,7 +8,7 @@ import { CandidateInfo } from '../../Common/data/CandidateData';
 const NationalElections: React.FC = () => {
   return (
     <div className='flex flex-col min-h-screen justify-normal'>
-      <HeaderSecondary />
+      <HeaderSecondary position='center' />
       <main className='flex flex-col items-center top-0 min-h-[74vh] max-w-screen-lg mx-auto'>
         <div className='flex flex-col items-center gap-2 my-2'>
           <div className='flex gap-2'>
