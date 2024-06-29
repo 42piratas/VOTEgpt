@@ -3,6 +3,10 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+interface HeaderSecondaryProps {
+  position: 'center' | 'left' | 'right'; // Define appropriate positions
+}
+
 const Header: React.FC = () => {
   return (
     <Link href='/'>
@@ -22,10 +26,15 @@ const Header: React.FC = () => {
   );
 };
 
-export const HeaderSecondary: React.FC = () => {
+export const HeaderSecondary: React.FC<HeaderSecondaryProps> = ({ position }) => {
+
   return (
     <Link href='/'>
-      <div className=' p-4 text-white flex flex-col gap-4'>
+      <div
+        className={`p-4 text-white flex flex-col ${
+          position === 'center' ? 'items-center' : ''
+        } gap-4`}
+      >
         <Image
           loading='eager'
           src='/votegpt_logo.jpg'
@@ -33,9 +42,6 @@ export const HeaderSecondary: React.FC = () => {
           width={200}
           height={200}
         />
-        <span className='text-black'>
-          Know your candidates, lead the change
-        </span>
       </div>
     </Link>
   );
