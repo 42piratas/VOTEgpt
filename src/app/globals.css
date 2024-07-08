@@ -1,7 +1,0 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-.link {
-  @apply text-[#2592BF] underline hover:text-[#1a749b];
-}
