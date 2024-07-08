@@ -1,7 +1,7 @@
 <!-- ABOUT -->
 # VOTEgpt
 
-[www.VOTEgpt.io](https://www.votegpt.io/) an AI-powered app designed to deliver impartial, comprehensive information on election candidates. Users can select their country and election type to access detailed candidate profiles, including biographies, political platforms, past experiences, and key policy positions.
+[VOTEgpt.io](https://www.votegpt.io/) an AI-powered app designed to deliver impartial, comprehensive information on election candidates. Users can select their country and election type to access detailed candidate profiles, including biographies, political platforms, past experiences, and key policy positions.
 
 See `HOWITWORKS.txt` for details.
 
