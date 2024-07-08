@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Elections in {{ country }}</title>
+    </head>
+    <body>
+        <h1>Elections in {{ country }}</h1>
+        <ul>
+            {% for election in elections %}
+            <li>
+                <a
+                    href="{{ url_for('main.get_election', election_id=election.id) }}"
+                    >{{ election.name }} ({{ election.date }})</a
+                >
+            </li>
+            {% endfor %}
+        </ul>
+        <a href="/">Go back</a>
+    </body>
+</html>
