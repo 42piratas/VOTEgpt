@@ -16,8 +16,6 @@ Any contributions you make are **greatly appreciated!** ♥️
 
 Please, check [CONTRIBUTE.md](https://github.com/42piratas/VOTEgpt/blob/main/CONTRIBUTE.md)
 
-- [ ] To-do
-
 <!-- LICENSE -->
 # ✊🏽 License
 
