@@ -3,9 +3,9 @@
 
 [VOTEgpt.io](https://www.votegpt.io/) is an OSS AI-powered service designed to provide impartial, comprehensive information on election candidates. Users can access detailed candidate profiles, including biographies, political platforms, past experiences, and key policy positions.
 
-Understanding how VOTEgpt works, the prompts being used, and its potential flaws is crucial for effective use. It’s your responsibility to check these details to avoid mistakes and optimize results. Ensuring you are well-informed will help you get the best experience and most accurate information from the tool.
+Understanding how VOTEgpt works, the prompts being used, and its potential flaws is crucial for effective use. **It’s your responsibility to check these details to avoid mistakes and optimize results.** Ensuring you are well-informed will help you get the best experience and most accurate information from the tool.
 
-For a deeper understanding of how the tool operates behind the scenes, please visit [our Wiki](https://github.com/42piratas/VOTEgpt/wiki) for detailed information.
+For a deeper understanding of how the tool operates behind the scenes, please visit [our Wiki](https://github.com/42piratas/VOTEgpt/wiki).
 
 <!-- CONTRIBUTING -->
 # Contributing
