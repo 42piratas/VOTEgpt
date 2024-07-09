@@ -1,5 +1,5 @@
 <!-- ABOUT -->
-# VOTEgpt
+# 🤖 VOTEgpt
 
 [VOTEgpt.io](https://www.votegpt.io/) is an OSS AI-powered service designed to provide impartial, comprehensive information on election candidates. Users can access detailed candidate profiles, including biographies, political platforms, past experiences, and key policy positions.
 
@@ -8,24 +8,30 @@ Understanding how VOTEgpt works, the prompts being used, and its potential flaws
 For a deeper understanding of how the tool operates behind the scenes, please visit [our Wiki](https://github.com/42piratas/VOTEgpt/wiki).
 
 <!-- CONTRIBUTING -->
-# Contributing
+# 🤗 Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated <3**
+Contributions are what make the open source community such an amazing place to learn, inspire, and create.
+
+Any contributions you make are **greatly appreciated!** ♥️
+
+Please, check [CONTRIBUTE.md](https://github.com/42piratas/VOTEgpt/blob/main/CONTRIBUTE.md)
 
 - [ ] To-do
 
 <!-- LICENSE -->
-# License
-[GPL-3.0](https://github.com/42piratas/VOTEgpt/blob/main/LICENSE.txt)
+# ✊🏽 License
+
+[GNU General Public License v3 (GPL-3.0)](https://github.com/42piratas/VOTEgpt/blob/main/LICENSE.txt)
 
 <!-- ACKNOWLEDGMENTS -->
-# Acknowledgments
+# 🔉 Acknowledgments
+
 VOTEgpt has been brought to life thanks to the efforts of:
 - [ ] To-do
 
 <!-- SUPPORTERS -->
 
-# Supporters
+# 💪🏽 Supporters
 Support this project by...
 - [ ] To-do
 
