@@ -12,16 +12,11 @@ and International IDEA. Also, return the source(s) you got the information from.
 concisely, without introduction or any extra information or comments. Sources that delivered only
 redundant information should not be listed.
 
-Return the 05 keywords that best describe <CANDIDATE-NAME>.
-Do not count/include the words "POLITICIAN" and "PRESIDENT"
+candidate_keywords = "Return the 5 keywords that best describe {candidate_name}, the {candidate_nationality} candidate. Exclude any words related to professional roles, titles, or positions, such as 'politician', 'president', 'minister', etc."
 
-In 140 characters-max, what's <CANDIDATE-NAME>'s position on LGBTQ rights?
-Ensure the data is sourced from reliable, impartial sources, such as academic publications,
-government reports, and reputable non-partisan organizations.
+candidate_lgbtq = "In 140 characters-max, what's {candidate_name}'s, the {candidate_nationality} candidate, position on LGBTQ rights? Ensure the data is sourced from reliable, impartial sources, such as academic publications, government reports, and reputable non-partisan organizations."
 
-Please, describe <CANDIDATE-NAME>'s, the <NATIONALITY> candidate, position on LGBTQ rights as either:
-'supportive', 'opposed', 'neutral', 'ambiguous', or 'unknown'. Ensure the data is sourced from reliable,
-impartial sources, such as academic publications, government reports, and reputable non-partisan organizations.
+candidate_lgbtq_sum = "Please, describe {candidate_name}'s, the {candidate_nationality} candidate, position on LGBTQ rights as either: 'SUPPORTIVE', 'OPPOSED', 'NEUTRAL', 'AMBIGUOUS', or 'UNKNOWN'. Ensure the data is sourced from reliable, impartial sources, such as academic publications, government reports, and reputable non-partisan organizations."
 
 Ensure the data is sourced from reliable, impartial sources, such as academic publications,
 government reports, and reputable non-partisan organizations.
