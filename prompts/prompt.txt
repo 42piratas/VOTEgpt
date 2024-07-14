@@ -15,7 +15,13 @@ redundant information should not be listed.
 Return the 05 keywords that best describe <CANDIDATE-NAME>.
 Do not count/include the words "POLITICIAN" and "PRESIDENT"
 
-In 140 characters-max, what's his position regarding LGBTQ rights
+In 140 characters-max, what's <CANDIDATE-NAME>'s position on LGBTQ rights?
+Ensure the data is sourced from reliable, impartial sources, such as academic publications,
+government reports, and reputable non-partisan organizations.
 
-Describe <CANDIDATE-NAME>'s position on LGBTQ rights with one of these:
-supportive, opposed, neutral, ambiguous, or unknown.
+Please, describe <CANDIDATE-NAME>'s, the <NATIONALITY> candidate, position on LGBTQ rights as either:
+'supportive', 'opposed', 'neutral', 'ambiguous', or 'unknown'. Ensure the data is sourced from reliable,
+impartial sources, such as academic publications, government reports, and reputable non-partisan organizations.
+
+Ensure the data is sourced from reliable, impartial sources, such as academic publications,
+government reports, and reputable non-partisan organizations.
