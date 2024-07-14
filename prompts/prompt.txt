@@ -1,0 +1,21 @@
+scheduled to this year in the future based on today's date, <NOW-DATE>
+
+Based only on the following sources
+--- International Foundation for Electoral Systems (IFES),
+ElectionGuide.org, Inter-Parliamentary Union (IPU) and International IDEA ---
+what elections are scheduled to this year in the future based on today's date, 13 July 2024
+
+return me a list with the name of all candidates running for <the presidential election in Venezuela>
+Only use information from the sources below and from their government's official government --
+International Foundation for Electoral Systems (IFES), ElectionGuide.org, Inter-Parliamentary Union (IPU)
+and International IDEA. Also, return the source(s) you got the information from. Return only the list of candidates,
+concisely, without introduction or any extra information or comments. Sources that delivered only
+redundant information should not be listed.
+
+Return the 05 keywords that best describe <CANDIDATE-NAME>.
+Do not count/include the words "POLITICIAN" and "PRESIDENT"
+
+In 140 characters-max, what's his position regarding LGBTQ rights
+
+Describe <CANDIDATE-NAME>'s position on LGBTQ rights with one of these:
+supportive, opposed, neutral, ambiguous, or unknown.
