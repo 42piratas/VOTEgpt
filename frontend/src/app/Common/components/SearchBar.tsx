@@ -55,7 +55,7 @@ export default function CountrySelect() {
               alt={option.label}
               title={option.label}
             />
-            {option.label} ({option.code})
+            {option.label}
           </Box>
         )}
         renderInput={(params) => (
@@ -70,8 +70,9 @@ export default function CountrySelect() {
         )}
       />
       <Link
-        href='#'
+        href='https://github.com/42piratas/VOTEgpt/wiki'
         className='text-lg text-[#2592BF] underline hover:text-[#1a749b]'
+        target='_blank'
       >
         Learn how it works
       </Link>

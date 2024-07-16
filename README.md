@@ -1,5 +1,5 @@
 <!-- ABOUT -->
-# VOTEgpt
+# 🤖 VOTEgpt
 
 [VOTEgpt.io](https://www.votegpt.io/) is an OSS AI-powered service designed to provide impartial, comprehensive information on election candidates. Users can access detailed candidate profiles, including biographies, political platforms, past experiences, and key policy positions.
 
@@ -13,9 +13,11 @@ See `HOWITWORKS.txt` for details.
 **Details soon!**
 
 <!-- CONTRIBUTING -->
-# Contributing
+# 🤗 Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open source community such an amazing place to learn, inspire, and create.
+
+Any contributions you make are **greatly appreciated!** ♥️
 
 **Details soon!**
 - [ ] TODO
@@ -33,7 +35,7 @@ See `LICENSE.txt` for more information.
 # Acknowledgments
 - [ ] TODO
 
-# Supporters and donators
+<!-- SUPPORTERS -->
 
 Help this project to continue alive. **Details soon!**
 - [ ] TODO

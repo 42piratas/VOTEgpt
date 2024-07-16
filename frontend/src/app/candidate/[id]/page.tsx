@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { HeaderSecondary } from '../../Common/components/Header';
 import { CandidateInfo } from '../../Common/data/CandidateData';
-import Footer from '../../Common/components/Footer';
 import Link from 'next/link';
 
 export default function CandidatePage({ params }: { params: { id: string } }) {
@@ -292,7 +291,6 @@ export default function CandidatePage({ params }: { params: { id: string } }) {
           </p>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Candidates for Election ID {{ election_id }}</title>
+    </head>
+    <body>
+        <h1>Candidates for Election ID {{ election_id }}</h1>
+        <ul>
+            {% for candidate in candidates %}
+            <li>
+                <a
+                    href="{{ url_for('main.get_candidate', candidate_id=candidate.id) }}"
+                    >{{ candidate.name }} ({{ candidate.age }} years old, {{
+                    candidate.nationality }})</a
+                >
+            </li>
+            {% endfor %}
+        </ul>
+        <a href="/">Go back</a>
+    </body>
+</html>
