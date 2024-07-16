@@ -1,16 +1,13 @@
 <!-- ABOUT -->
 # 🤖 VOTEgpt
 
-[VOTEgpt.io](https://www.votegpt.io/) is an OSS AI-powered service designed to provide impartial, comprehensive information on election candidates. Users can access detailed candidate profiles, including biographies, political platforms, past experiences, and key policy positions.
+[VOTEgpt.io](https://www.votegpt.io/) is an OSS AI-powered service designed to provide impartial, comprehensive information on election candidates. Users can access information about elections, in particular detailed candidate profiles, including biographies, political platforms, past experiences, and key policy positions.
 
-See `HOWITWORKS.txt` for details.
-- [ ] TODO
+Understanding how VOTEgpt works, the prompts being used, and its potential flaws is crucial for effective use. **It’s your responsibility to check these details to avoid mistakes and optimize results.** Ensuring you are well-informed will help you get the best experience and most accurate information from the tool.
 
-<!-- ROADMAP -->
-# Roadmap
-- [ ] TODO
+Besides, please **always double-check any information you see on ChatGPT to ensure its accuracy and reliability.**
 
-**Details soon!**
+For a deeper understanding of how the tool operates behind the scenes, please visit [our Wiki](https://github.com/42piratas/VOTEgpt/wiki).
 
 <!-- CONTRIBUTING -->
 # 🤗 Contributing
@@ -19,25 +16,23 @@ Contributions are what make the open source community such an amazing place to l
 
 Any contributions you make are **greatly appreciated!** ♥️
 
-**Details soon!**
-- [ ] TODO
+Please, check [CONTRIBUTE.md](https://github.com/42piratas/VOTEgpt/blob/main/CONTRIBUTE.md)
 
 <!-- LICENSE -->
-# License
+# ✊🏽 License
 
-This project is licensed under [Copyleft](https://www.gnu.org/licenses/copyleft.en.html).
-- [ ] TODO
-
-See `LICENSE.txt` for more information.
-- [ ] TODO
+[GNU General Public License v3 (GPL-3.0)](https://github.com/42piratas/VOTEgpt/blob/main/LICENSE.txt)
 
 <!-- ACKNOWLEDGMENTS -->
-# Acknowledgments
-- [ ] TODO
+# 🔉 Acknowledgments
+
+VOTEgpt has been brought to life thanks to the efforts of:
+- [ ] To-do
 
 <!-- SUPPORTERS -->
 
-Help this project to continue alive. **Details soon!**
-- [ ] TODO
+# 💪🏽 Supporters
+Support this project by...
+- [ ] To-do
 
 Also, don't forget to give a ⭐️ if this project helped you!
