@@ -5,6 +5,8 @@
 
 Understanding how VOTEgpt works, the prompts being used, and its potential flaws is crucial for effective use. **It’s your responsibility to check these details to avoid mistakes and optimize results.** Ensuring you are well-informed will help you get the best experience and most accurate information from the tool.
 
+Besides, please **always double-check any information you see on ChatGPT to ensure its accuracy and reliability.**
+
 For a deeper understanding of how the tool operates behind the scenes, please visit [our Wiki](https://github.com/42piratas/VOTEgpt/wiki).
 
 <!-- CONTRIBUTING -->
