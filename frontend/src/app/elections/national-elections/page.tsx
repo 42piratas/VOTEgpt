@@ -5,11 +5,12 @@ import CandidateBox from './components/candidateBox';
 import { HeaderSecondary } from '../../Common/components/Header';
 import Footer from '../../Common/components/Footer';
 import { CandidateInfo } from '../../Common/data/CandidateData';
+import CandidateBoxV2 from './components/candidateBoxV2';
 const NationalElections: React.FC = () => {
   return (
-    <div className='flex flex-col min-h-screen justify-normal'>
+    <div className='flex flex-col justify-normal'>
       <HeaderSecondary position='center' />
-      <main className='flex flex-col items-center top-0 min-h-[74vh] max-w-screen-lg mx-auto'>
+      <main className='flex flex-col items-center top-0 mx-auto'>
         <div className='flex flex-col items-center gap-2 my-2'>
           <div className='flex gap-2'>
             <Image
@@ -24,13 +25,12 @@ const NationalElections: React.FC = () => {
           </div>
           <span className='text-xl'>National Elections 03 may 2025</span>
         </div>
-        <div className='grid gap-4 lg:grid-cols-2 lg:overflow-auto'>
+        <div className='grid gap-8 bg-slate-100 md:grid-cols-2 lg:grid-cols-4 lg:overflow-auto px-20 md:p-20'>
           {CandidateInfo.map((candidate, index) => (
-            <CandidateBox key={index} candidate={candidate} />
+            <CandidateBoxV2 key={index} candidate={candidate} />
           ))}
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

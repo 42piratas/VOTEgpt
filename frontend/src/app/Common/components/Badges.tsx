@@ -3,7 +3,7 @@ import Image from 'next/image';
 export default function BadgesArea() {
   return (
     <div className='flex gap-2 w-[300px] items-center justify-between p-2'>
-      <a href='#'>
+      <a href='https://github.com/42piratas/VOTEgpt/blob/main/CONTRIBUTE.md'>
         <Image
           loading='eager'
           className='transition-colors duration-500 ease-in-out transform hover:scale-105'
@@ -13,7 +13,7 @@ export default function BadgesArea() {
           height={100}
         />
       </a>
-      <a href='#'>
+      <a href='https://github.com/42piratas/VOTEgpt/blob/main/LICENSE.txt'>
         <Image
           loading='eager'
           className='transition-colors duration-500 ease-in-out transform hover:scale-105'
