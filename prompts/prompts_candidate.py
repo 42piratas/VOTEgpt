@@ -6,6 +6,8 @@ clean_output = "Don't add {candidate_name}'s name to the answer. Return only the
 
 cite_sources =
 
+#########################
+
 scheduled to this year in the future based on today's date, <NOW-DATE>
 
 what elections are scheduled to this year in the future based on today's date, 13 July 2024
