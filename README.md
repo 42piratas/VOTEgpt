@@ -16,7 +16,7 @@ Contributions are what make the open source community such an amazing place to l
 
 Any contributions you make are **greatly appreciated!** ♥️
 
-Please, check [CONTRIBUTE.md](https://github.com/42piratas/VOTEgpt/blob/main/CONTRIBUTE.md)
+Please, check [CONTRIBUTING.md](https://github.com/42piratas/VOTEgpt/blob/main/CONTRIBUTING.md)
 
 <!-- LICENSE -->
 # ✊🏽 License
