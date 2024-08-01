@@ -2,7 +2,6 @@ from prompts_common import *
 
 
 ####### SHORTNAME
-####### E.G.
 # 'Lula'
 # 'Joe Biden'
 # FALSE

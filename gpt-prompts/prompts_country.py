@@ -2,8 +2,8 @@ from prompts_common import *
 
 
 ####### DEMOCRATIC #######
-####### E.G.
 # [TRUE, [‘IFES’, ‘ElectionGuide.org’]]
+# [FALSE, [‘IFES’, ‘ElectionGuide.org’]]
 
 country_is_democratic: str = (
     "Please, respond with only 'TRUE' or 'FALSE': is {country} democratic or not? "
@@ -14,7 +14,6 @@ country_is_democratic += " " + sources_strict
 
 
 ####### ELECTIONS #######
-####### E.G.
 # [{'Parliamentary':'2024-04-10', 'Provincial':'2024-04-10'}, ['International IDEA', 'ElectionGuide.org']]
 # ['FALSE', ['International IDEA', 'ElectionGuide.org']]
 

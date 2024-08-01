@@ -2,7 +2,6 @@ from prompts_common import *
 
 
 ####### CANDIDATES
-####### E.G.
 # [‘United States’, ‘Presidential’, ‘2024-11-05’, [‘Joe Biden’, ‘Donald Trump’, ‘Chase Oliver’, ‘Robert F. Kennedy Jr.’, ‘Ron DeSantis’,  ‘Cornel West’], [‘Ballotpedia’, ‘Wikipedia’]]
 
 election_candidates: str = (
