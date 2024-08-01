@@ -2,7 +2,7 @@ from prompts_common import *
 
 
 ####### CANDIDATES
-# [‘United States’, ‘Presidential’, ‘2024-11-05’, [‘Joe Biden’, ‘Donald Trump’, ‘Chase Oliver’, ‘Robert F. Kennedy Jr.’, ‘Ron DeSantis’,  ‘Cornel West’], [‘Ballotpedia’, ‘Wikipedia’]]
+# ['United States', 'Presidential', '2024-11-05', ['Joe Biden', 'Donald Trump', 'Chase Oliver', 'Robert F. Kennedy Jr.', 'Ron DeSantis',  'Cornel West'], ['Ballotpedia', 'Wikipedia']]
 
 election_candidates: str = (
     "Please, provide a list of the full names of all candidates participating in the upcoming "
