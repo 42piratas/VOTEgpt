@@ -37,7 +37,7 @@ candidate_profile_a: str = (
     "'religion': Religion | 'Unknown', 'education': [education] | 'Unknown', "
     "'current-party': [current-party] | 'Unknown', 'previous-party(ies)': [previous-party(ies)] | 'Unknown', "
     "'political-experience': [political role (1999-2099)] | 'Unknown', 'endorsements': [endorsements] | 'Unknown', "
-    "'funding-sources': [funding-sources] | 'Unknown'}}, ['SOURCE URL 1', ..., 'SOURCE URL N']]."
+    "'funding-sources': [funding-sources] | 'Unknown'}}, ['SOURCE's URL 1', ..., 'SOURCE's URL N']]."
 ).format(candidate_name=candidate_name, country=country)
 
 candidate_profile_a += " " + sources_reliable
