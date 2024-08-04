@@ -3,16 +3,82 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import { Modal, Typography } from '@mui/material';
 import Link from 'next/link';
 import Image from 'next/image';
 import CountryType from '../types/CountryType';
-import { countries } from '../data/Countries';
 import { ElectionLink } from './ElectionsLink';
+import { electionsController } from '@/app/controller/getData';
+import ModalCountryElections from './ModalCountryElections';
+import { common_messages } from '../messages';
 
 export default function CountrySelect() {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
+  const [electionData, setElectionData] = React.useState([
+    { Elections: 'Searching' },
+  ]);
+  const [countrySelected, setCountrySelected] = React.useState<CountryType>({
+    code: '',
+    label: '',
+  });
+  const [countries, setContries] = React.useState<CountryType[]>([
+    {
+      code: '',
+      label: '',
+    },
+  ]);
+  const [isDemocratic, setIsDemocratic] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const result = await electionsController.CountriesData();
+      console.log(result);
+      setContries(result);
+    };
+    fetchData();
+  }, []);
+
+  // request election data
+  const handleSubmitData = async (
+    newValue: {
+      code: string;
+      label: string;
+    } | null
+  ) => {
+    try {
+      // colocar mensagem de busca
+      setElectionData([
+        {
+          Elections: common_messages.searching,
+        },
+      ]);
+      console.log(newValue?.label);
+      const result =
+        newValue?.label &&
+        (await electionsController.ElectionData(newValue?.label));
+
+      if (result === undefined) {
+        setElectionData([
+          {
+            Elections: common_messages.information_not_found,
+          },
+        ]);
+        return;
+      }
+      if (!result) {
+        setElectionData([
+          {
+            Elections: 'This country is not democratic',
+          },
+        ]);
+        return;
+      }
+      setElectionData(result?.elections);
+    } catch (error) {
+      console.error('Error:', error);
+      // setResponse('Failed to get response from ChatGPT');
+    }
+  };
 
   const style = {
     position: 'absolute' as 'absolute',
@@ -26,14 +92,12 @@ export default function CountrySelect() {
     p: 4,
   };
 
-  const [countrySelected, setCountrySelected] =
-    React.useState<CountryType | null>(null);
-
   return (
     <div className='flex flex-col items-center gap-2'>
       <Autocomplete
         onChange={(event, newValue) => {
-          setCountrySelected(newValue);
+          setCountrySelected(newValue || { code: '', label: '' });
+          handleSubmitData(newValue);
           setOpen(true);
         }}
         id='country-select-demo'
@@ -64,59 +128,34 @@ export default function CountrySelect() {
             label='Choose a country'
             inputProps={{
               ...params.inputProps,
-              autoComplete: 'new-password', // disable autocomplete and autofill
+              autoComplete: 'new-password',
             }}
           />
         )}
       />
-      <Link
-        href='https://github.com/42piratas/VOTEgpt/wiki'
-        className='text-lg text-[#2592BF] underline hover:text-[#1a749b]'
-        target='_blank'
-      >
-        Learn how it works
-      </Link>
-      <Modal
+      <div className='flex w-full justify-center gap-4'>
+        <Link
+          href='https://github.com/42piratas/VOTEgpt/wiki'
+          className='text-lg text-[#2592BF] underline hover:text-[#1a749b]'
+          target='_blank'
+        >
+          How it works
+        </Link>
+        <Link
+          href='https://github.com/42piratas/VOTEgpt/issues/new'
+          className='text-lg text-[#2592BF] underline hover:text-[#1a749b]'
+          target='_blank'
+        >
+          Feedback/Report
+        </Link>
+      </div>
+      <ModalCountryElections
         open={open}
-        onClose={handleClose}
-        aria-labelledby='modal-modal-title'
-        aria-describedby='modal-modal-description'
-      >
-        <Box sx={style}>
-          {countrySelected?.label != 'Romania' ? (
-            <Typography id='modal-modal-title' variant='h6' component='h2'>
-              Sorry ! We&apos;re not aware of any elections in{' '}
-              {countrySelected?.label}
-            </Typography>
-          ) : (
-            <>
-              <div className='flex items-center gap-5 w-full '>
-                <Image
-                  loading='lazy'
-                  width='50'
-                  height='50'
-                  src={`https://flagcdn.com/w40/${countrySelected?.code.toLowerCase()}.png`}
-                  alt={countrySelected.label}
-                  title={countrySelected.label}
-                />
-                <Typography id='modal-modal-title' variant='h6' component='h2'>
-                  {countrySelected?.label}
-                </Typography>
-              </div>
-              <Box sx={{ mt: 2 }} gap={2} display='flex' flexDirection='column'>
-                <ElectionLink
-                  href='/elections/national-elections'
-                  description='National elections - 3 May 2025'
-                />
-                <ElectionLink
-                  href='/elections/regional-elections'
-                  description='Regional elections - 22 May 2025'
-                />
-              </Box>
-            </>
-          )}
-        </Box>
-      </Modal>
+        handleClose={handleClose}
+        countrySelected={countrySelected}
+        electionData={electionData}
+        isDemocratic={isDemocratic}
+      />
     </div>
   );
 }

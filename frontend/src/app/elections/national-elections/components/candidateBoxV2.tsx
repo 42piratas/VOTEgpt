@@ -9,7 +9,7 @@ import { Bio } from '../../../Common/types/CandidateType';
 const CandidateBoxV2: React.FC<{ candidate: Bio }> = ({ candidate }) => {
   return (
     <Link
-      className='max-w-64 bg-slate-50 p-5 rounded shadow-xl cursor-pointer border'
+      className='max-w-72 bg-slate-50 p-5 rounded shadow-xl cursor-pointer border'
       href={`/candidate/${candidate.id}`}
     >
       <Image
@@ -20,11 +20,12 @@ const CandidateBoxV2: React.FC<{ candidate: Bio }> = ({ candidate }) => {
         width={200}
         height={200}
       />
-      <h3 className='text-xl mt-2 tracking-tight font-semibold'>
+      <h3 className='text-lg mt-2 tracking-tight font-semibold'>
         {`${candidate.name} (age ${candidate.age})`}
       </h3>
-      <p className='text-base text-gray-500'>{candidate.party.current}</p>
-      <p className='text-gray-500'>{candidate.keywords.join(', ')}</p>
+      <p className='text-base text-gray-400'>{candidate.party.current}</p>
+      <p className='text-gray-700'><strong>Platform:</strong> {candidate.platform}</p>
+      <p className='text-gray-700'><strong>Keywords:</strong> {candidate.keywords.join(', ')}</p>
     </Link>
   );
 };

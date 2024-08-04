@@ -1,9 +1,11 @@
-from flask import Flask
+# __init__.py
+import logging
+from main import app
 
-def create_app():
-    app = Flask(__name__)
-
-    from .routes import main
-    app.register_blueprint(main)
-
-    return app
+if not app.debug:
+    stream_handler = logging.StreamHandler()
+    stream_handler.setLevel(logging.INFO)
+    app.logger.addHandler(stream_handler)
+    
+app.logger.setLevel(logging.INFO)
+app.logger.info('VOTEGPT startup')

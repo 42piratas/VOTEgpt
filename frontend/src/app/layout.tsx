@@ -14,7 +14,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: 'VoteGPT',
+  title: 'VOTEgpt | Know your candidate',
   description: 'KNOW YOUR CANDIDATES, LEAD THE CHANGE',
 };
 

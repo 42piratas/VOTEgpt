@@ -1,0 +1,12 @@
+country
+country_is_democratic
+country_elections
+
+election_type
+election_date
+election_candidates
+
+candidate_shortname
+
+sources_strict
+sources_reliable

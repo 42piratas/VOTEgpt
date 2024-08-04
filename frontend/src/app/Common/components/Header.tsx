@@ -9,20 +9,15 @@ interface HeaderSecondaryProps {
 
 const Header: React.FC = () => {
   return (
-    <>
-      <Link href='/'>
-        <div className='text-white text-center flex flex-col items-center gap-4'>
-          <Image
-            loading='eager'
-            src='/votegpt_logo.jpg'
-            alt='logo'
-            width={350}
-            height={350}
-          />
-        </div>
-      </Link>
-      <span className='text-black'>Know your candidates, lead the change</span>
-    </>
+    <div className='text-white text-center flex flex-col items-center gap-4'>
+      <Image
+        loading='eager'
+        src='/vote-gpt-logo.png'
+        alt='logo'
+        width={350}
+        height={350}
+      />
+    </div>
   );
 };
 
@@ -38,7 +33,7 @@ export const HeaderSecondary: React.FC<HeaderSecondaryProps> = ({
       >
         <Image
           loading='eager'
-          src='/votegpt_logo.jpg'
+          src='/vote-gpt-logo.png'
           alt='logo'
           width={200}
           height={200}
