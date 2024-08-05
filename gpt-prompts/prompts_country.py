@@ -24,7 +24,9 @@ country_elections: str = (
     "If there are, list the types of elections (e.g., 'Presidential', 'Parliamentary', 'State', etc.), "
     "the scheduled dates for these elections, and provide the sources of this information. "
     "Format the response as follows: "
-    "[{{'Type of Election 1':'Date 1', 'Type of Election 2':'Date 2'}}, ['Source 1's URL', ..., 'Source N's URL']] or [FALSE, ['Source 1's URL', ..., 'Source N's URL']]"
+    "[{{'Type of Election 1':'Date 1', 'Type of Election 2':'Date 2'}}, ['Source 1's URL', ..., 'Source N's URL']]. "
+    "If there are no elections scheduled to {country}, return only 'FALSE' and the sources, formatted as "
+    "[FALSE, ['Source 1's URL', ..., 'Source N's URL']]"
 ).format(country=country)
 
 country_elections += " " + sources_strict
