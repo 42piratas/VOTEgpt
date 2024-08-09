@@ -1,19 +1,172 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Select Country</title>
-    </head>
-    <body>
-        <h1>Select a Country</h1>
-        <form method="post">
-            <label for="country">Choose a country:</label>
-            <select id="country" name="country">
-                {% for country in countries %}
-                <option value="{{ country }}">{{ country }}</option>
-                {% endfor %}
-            </select>
-            <input type="submit" value="Submit" />
-        </form>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Select Country</title>
+    <link
+      href="{{url_for('static',filename='css/main.css')}}"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="flex flex-col min-h-screen justify-center py-2">
+    <main class="flex flex-col items-center justify-center gap-8 my-auto">
+      <div class="text-center flex flex-col items-center gap-5">
+        <img
+          src="../static/images/vote-gpt-logo.png"
+          alt="VoteGPT Logpo"
+          style="width: 350px"
+        />
+        <select id="countrySelect" class="block w-full p-2 border border-gray-300 rounded">
+            <option value="">Select a country</option>
+            {% for country in countries %}
+            <option value="{{ country.code }}" data-label="{{ country }}">
+                {{ country.label }}
+            </option>
+            {% endfor %}
+        </select>
+        
+        <div class='flex w-full justify-center gap-4'>
+            <a
+            href='https://github.com/42piratas/VOTEgpt/wiki'
+            class='text-lg text-[#2592BF] underline hover:text-[#1a749b]'
+            target='_blank'
+            >
+            How it works
+            </a>
+            <a
+            href='https://github.com/42piratas/VOTEgpt/issues/new'
+            class='text-lg text-[#2592BF] underline hover:text-[#1a749b]'
+            target='_blank'
+            >
+            Feedback/Report
+            </a>
+        </div>
+      </div>
+      <!-- Modal Country -->
+      <div id="countryModal" class="fixed inset-0 bg-gray-600 min-h-screen bg-opacity-50 hidden justify-center items-center">
+        <div class="p-5 rounded-lg shadow-lg m-auto bg-white">
+            <div class="flex justify-between items-center mb-5 gap-5">
+                <div id="modalTitle" class="flex items-center w-full gap-5">Country Details</div>
+                <button id="closeModal" class="text-gray-500 hover:text-gray-700">&times;</button>
+            </div>
+            <div id="modalContent">
+                <!-- Country details will be inserted here -->
+            </div>
+        </div>
+    </main>
+    <footer class="flex flex-col items-center gap-2 w-full bg-white bottom-0">
+      <div class="flex gap-2 items-center justify-between p-2">
+        <a href="#">
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            DONATE
+          </button>
+        </a>
+        <a
+          href="https://github.com/42piratas/VOTEgpt/blob/main/CONTRIBUTE.md"
+          target="_blank"
+        >
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            BUIDL
+          </button>
+        </a>
+        <a
+          href="https://github.com/42piratas/VOTEgpt/blob/main/LICENSE.md"
+          target="_blank"
+        >
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            GPL-3.0
+          </button>
+        </a>
+      </div>
+    </footer>
+  </body>
+  <script>  
+      document.getElementById('closeModal').addEventListener('click', function() {
+          document.getElementById('countryModal').classList.add('hidden');
+      });
+  
+      document.getElementById('countryModal').addEventListener('click', function(event) {
+          if (event.target === this) {
+              this.classList.add('hidden');
+          }
+      });
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const countrySelect = document.getElementById('countrySelect');
+        const countryModal = document.getElementById('countryModal');
+        const modalContent = document.getElementById('modalContent');
+        const modalTitle = document.getElementById('modalTitle');
+        const closeModal = document.getElementById('closeModal');
+
+        countrySelect.addEventListener('change', function() {
+            // Get the selected country id, country code and label
+            const selectedCountry = countrySelect.options[countrySelect.selectedIndex];
+            let country = selectedCountry.getAttribute('data-label');
+            const countryStr = country.replace(/'/g, '"').replace(/True/g, 'true').replace(/False/g, 'false');
+            country = JSON.parse(countryStr);
+            modalTitle.innerHTML = `
+                <img src="https://flagcdn.com/w80/${country.code.toLowerCase()}.png" alt="Flag of ${country.label}">
+                <span class="text-2xl bold">${country.label}</span>
+            `;
+            modalContent.innerHTML = `
+                <p>Loading...</p>
+            `;
+            modalContent.innerHTML = `
+                <p>Searching...</p>
+            `;
+            // Show the modal
+            countryModal.classList.remove('hidden');
+            countryModal.classList.add('flex');
+
+            if (country.id) {
+                // Fetch the election data for the selected country
+                fetch(`/elections/${country.label}/${country.id}`)
+                    .then(response => {
+                        // Verifique se a resposta está ok, caso contrário, lance um erro
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(JSON.stringify(data, null, 2));
+                        // Update the modal content with the fetched data
+                        modalContent.textContent = `${country.label} Elections`;
+
+            if (data.message) {
+                modalContent.innerHTML = `<p>${data.message}</p>`;
+            } else {
+                let electionsHtml = `<ul> ${data}`;
+
+                // data.elections.forEach(election => {
+                //     electionsHtml += `<li>${election}</li>`;
+                // });
+                electionsHtml += `</ul>`;
+
+                modalContent.innerHTML = electionsHtml;
+            }
+
+            // Show the modal
+            countryModal.classList.remove('hidden');
+        })
+        .catch(error => {
+            // Este catch será chamado apenas para erros de rede ou resposta inválida
+            modalContent.innerHTML = `<p>${error.message || 'An error occurred while fetching the elections data.'}</p>`;
+            countryModal.classList.remove('hidden');
+        });
+}
+        });
+
+        // Close modal on button click
+        closeModal.addEventListener('click', function() {
+            countryModal.classList.add('hidden');
+        });
+    });
+  </script>
 </html>
