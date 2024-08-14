@@ -37,3 +37,11 @@ next-env.d.ts
 node_modules
 app/__pycache__/
 poc/.next/
+backend/.idea/.gitignore
+backend/.idea/backend.iml
+backend/.idea/misc.xml
+backend/.idea/modules.xml
+backend/.idea/vcs.xml
+backend/.idea/inspectionProfiles/profiles_settings.xml
+backend/.env
+.env
