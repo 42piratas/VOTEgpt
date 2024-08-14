@@ -1,6 +1,5 @@
 from database.db_setup import db
-from database.models import Country, ElectionData
-from flask import jsonify
+from database.models import Candidate, Country, ElectionData
 
 def get_countries():
     try:
@@ -41,3 +40,40 @@ def insert_election(election_type, election_date, country_id):
         print(f"Error adding election {election_type}: {e}")
         db.session.rollback()
         return None
+    
+def get_elections_by_id(election_id):
+    try:
+        # Fetch election data by ID
+        election = ElectionData.query.filter_by(id=election_id).first()
+        country = Country.query.filter_by(id=election.country_id).first()
+        # candidate = Candidate.query.filter_by(id=election.candidate_id).first()
+        
+        
+        # Serialize data to JSON
+        election_data = {
+            'id': election.id,
+            'election_type': election.election_type,
+            'election_date': election.election_date,
+            'country': {
+                            'id': country.id,
+                            'label': country.label,
+                            'code': country.code,
+                        },
+            "candidate": {
+                            'id': 1,
+                            'name': 'Donand John Trump',
+                            'known_as': 'Donand Trump',
+                            'url_image': 'images/candidates/Donald_Trump_official_portrait.jpg',
+                            'current_party': 'Republican',
+                            'platform': 'tax cuts and deregulation, border wall and strict immigration policies, renegotiating trade deals, repeal and replace Obamacare, “America First” foreign policy.',
+                            'keywords': 'Impeachment, Real Estate, Election Controversy, Immigration, Trade Policies',
+                        },
+            'sources': election.sources,
+        }
+        
+        # Return the election data
+        return election_data
+    except Exception as e:
+        print(f"Error fetching election {election_id}: {e}")
+        return {}
+    

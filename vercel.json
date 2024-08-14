@@ -1,14 +1,15 @@
 {
-  "buildCommand": "cd frontend && npm run build",
-  "outputDirectory": "frontend/build",
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/backend/(.*)",
-      "destination": "/backend/main.py"
-    },
+      "src": "/backend/main.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "/(.*)",
+      "dest": "/backend/main.py"
     }
   ]
 }

@@ -44,7 +44,7 @@
       </div>
       <!-- Modal Country -->
       <div id="countryModal" class="fixed inset-0 bg-gray-600 min-h-screen bg-opacity-50 hidden justify-center items-center">
-        <div class="p-5 rounded-lg shadow-lg m-auto bg-white">
+        <div class="p-5 rounded-lg shadow-lg m-auto bg-white w-[800px]">
             <div class="flex justify-between items-center mb-5 gap-5">
                 <div id="modalTitle" class="flex items-center w-full gap-5">Country Details</div>
                 <button id="closeModal" class="text-gray-500 hover:text-gray-700">&times;</button>
@@ -86,18 +86,14 @@
       </div>
     </footer>
   </body>
-  <script>  
-      document.getElementById('closeModal').addEventListener('click', function() {
-          document.getElementById('countryModal').classList.add('hidden');
-      });
-  
-      document.getElementById('countryModal').addEventListener('click', function(event) {
-          if (event.target === this) {
-              this.classList.add('hidden');
-          }
-      });
+  <script>
+    function openModal() {
+        const countryModal = document.getElementById('countryModal');
+        countryModal.classList.remove('hidden');
+        countryModal.classList.add('flex');
+    }
 
-      document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
         const countrySelect = document.getElementById('countrySelect');
         const countryModal = document.getElementById('countryModal');
         const modalContent = document.getElementById('modalContent');
@@ -105,68 +101,74 @@
         const closeModal = document.getElementById('closeModal');
 
         countrySelect.addEventListener('change', function() {
-            // Get the selected country id, country code and label
             const selectedCountry = countrySelect.options[countrySelect.selectedIndex];
             let country = selectedCountry.getAttribute('data-label');
-            const countryStr = country.replace(/'/g, '"').replace(/True/g, 'true').replace(/False/g, 'false');
-            country = JSON.parse(countryStr);
+            country = JSON.parse(country.replace(/'/g, '"').replace(/True/g, 'true').replace(/False/g, 'false'));
             modalTitle.innerHTML = `
                 <img src="https://flagcdn.com/w80/${country.code.toLowerCase()}.png" alt="Flag of ${country.label}">
                 <span class="text-2xl bold">${country.label}</span>
             `;
-            modalContent.innerHTML = `
-                <p>Loading...</p>
-            `;
-            modalContent.innerHTML = `
-                <p>Searching...</p>
-            `;
+            modalContent.innerHTML = `<p>Loading...</p>`;
+
+            // Fetch the election data for the selected country
+            fetch(`/elections/${country.label}/${country.id}/`)
+              .then(response => response.json())
+              .then(data => {
+                console.log(data)
+                  if (data.elections && Array.isArray(data.data)) {
+                      let content = `<ul class="flex flex-col gap-2 mb-2">`;
+                      data.data.forEach(election => {
+                          content += `<a href="/election/${election.id}"><li class="p-4 border border-black rounded">${election.election_type}: ${election.date}</li></a>`;
+                      });
+                      content += `</ul>`;
+                      content += `<div class="flex"><p>Sources:</p>`;
+                      if (Array.isArray(data.sources)) {
+                          data.sources.forEach(source => {
+                              content += `<a href="${source}" target="_blank" style="color: rgb(59 130 246);">[*]</a>`;
+                          });
+                          content += `</div>`;
+                      } else if (typeof data.sources === 'string') {
+                          const sourcesArray = data.sources.split(',');
+                          sourcesArray.forEach(source => {
+                              content += `<a href="${source.trim()}" target="_blank" style="color: rgb(59 130 246);">[*]</a>`;
+                          });
+                          content += `</div>`;
+                      } else {
+                          content += `<p>No sources available.</p>`;
+                      }
+                      modalContent.innerHTML = content;
+                  } else {
+                      let content = `<p>No upcoming elections.</p>`;
+                      if (Array.isArray(data.sources)) {
+                          data.sources.forEach(source => {
+                              content += `<a href="${source}" target="_blank">[*]</a>`;
+                          });
+                      } else if (typeof data.sources === 'string') {
+                          const sourcesArray = data.sources.split(',');
+                          sourcesArray.forEach(source => {
+                              content += `<a href="${source.trim()}" target="_blank">[*]</a>`;
+                          });
+                      } else {
+                          content += `<p>No sources available.</p>`;                
+                      modalContent.innerHTML = `<p>No upcoming elections.</p>`;
+                    }
+                  }
+                  openModal();
+              })
+              .catch(error => {
+                  console.error("Error fetching elections data:", error);
+                  modalContent.innerHTML = `<p>Error fetching election data. Please try again later.</p>`;
+              });
+
             // Show the modal
             countryModal.classList.remove('hidden');
             countryModal.classList.add('flex');
-
-            if (country.id) {
-                // Fetch the election data for the selected country
-                fetch(`/elections/${country.label}/${country.id}`)
-                    .then(response => {
-                        // Verifique se a resposta está ok, caso contrário, lance um erro
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log(JSON.stringify(data, null, 2));
-                        // Update the modal content with the fetched data
-                        modalContent.textContent = `${country.label} Elections`;
-
-            if (data.message) {
-                modalContent.innerHTML = `<p>${data.message}</p>`;
-            } else {
-                let electionsHtml = `<ul> ${data}`;
-
-                // data.elections.forEach(election => {
-                //     electionsHtml += `<li>${election}</li>`;
-                // });
-                electionsHtml += `</ul>`;
-
-                modalContent.innerHTML = electionsHtml;
-            }
-
-            // Show the modal
-            countryModal.classList.remove('hidden');
-        })
-        .catch(error => {
-            // Este catch será chamado apenas para erros de rede ou resposta inválida
-            modalContent.innerHTML = `<p>${error.message || 'An error occurred while fetching the elections data.'}</p>`;
-            countryModal.classList.remove('hidden');
-        });
-}
         });
 
-        // Close modal on button click
         closeModal.addEventListener('click', function() {
             countryModal.classList.add('hidden');
         });
     });
+
   </script>
 </html>

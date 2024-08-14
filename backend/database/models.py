@@ -1,5 +1,5 @@
 # models.py
-from database.db_setup import db
+from .db_setup import db
 from datetime import datetime
 
 class Country(db.Model):
@@ -15,9 +15,11 @@ class ElectionData(db.Model):
     __tablename__ = 'elections_data'
     
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    tipo_eleicao = db.Column(db.String, nullable=False)
-    data_eleicao = db.Column(db.Date, nullable=False)
+    election_type = db.Column(db.String, nullable=False)
+    election_date = db.Column(db.String, nullable=False)
+    sources = db.Column(db.String)
     country_id = db.Column(db.Integer, db.ForeignKey('countries.id'), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
     
     country = db.relationship('Country', back_populates='elections')

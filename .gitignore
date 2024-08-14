@@ -44,3 +44,4 @@ backend/.idea/modules.xml
 backend/.idea/vcs.xml
 backend/.idea/inspectionProfiles/profiles_settings.xml
 backend/.env
+.env
