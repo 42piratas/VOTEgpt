@@ -45,3 +45,4 @@ backend/.idea/vcs.xml
 backend/.idea/inspectionProfiles/profiles_settings.xml
 backend/.env
 .env
+app/venv/*

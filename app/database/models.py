@@ -19,8 +19,8 @@ class ElectionData(db.Model):
     election_date = db.Column(db.String, nullable=False)
     sources = db.Column(db.String)
     country_id = db.Column(db.Integer, db.ForeignKey('countries.id'), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.String, nullable=False)
+    updated_at = db.Column(db.String, nullable=False)
     
     country = db.relationship('Country', back_populates='elections')
 
@@ -61,3 +61,4 @@ class Candidate(db.Model):
     military_spending = db.Column(db.String)
     voting_rights = db.Column(db.String)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
+    election_id = db.Column(db.Integer, db.ForeignKey('elections_data.id'), nullable=False)
