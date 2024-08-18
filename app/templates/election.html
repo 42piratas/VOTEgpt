@@ -19,7 +19,7 @@
           />
         </div>
       </a>
-      <main class="flex flex-col items-center top-0 mx-auto">
+      <main class="flex flex-col items-center top-0 m-auto">
         <div class="flex flex-col items-center">
           <div class="flex gap-2">
             <img
@@ -30,39 +30,40 @@
             />
             <span class="text-5xl">{{election.country.label}}</span>
           </div>
-          <span class="text-xl mt-2"
-            >{{election.election_type}} {{election.election_date}}</span
-          >
+          <span class="text-xl mt-2">
+            {{election.election_type}} {{election.election_date}}
+          </span>
         </div>
+        {% if candidates %}
         <div
           class="grid gap-8 md:grid-cols-2 lg:grid-cols-4 lg:overflow-auto px-20 md:px-20 md:py-10"
         >
-          {% for numbers in [1, 2, 3, 4] %}
+          {% for candidate in candidates %}
           <div
             class="group relative cursor-pointer overflow-hidden bg-white px-2 pt-6 pb-4 shadow-2xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10"
           >
-            <a href="/candidate/{{election.candidate.id}}">
+            <a href="/candidate/{{candidate.id}}">
               <img
                 class="object-cover object-top w-full rounded-2xl aspect-[14/13] mx-auto"
-                src="{{url_for('static',filename='images/candidates/Donald_Trump_official_portrait.jpg')}}"
-                alt="{{election.candidate.name}}"
-                title="{{election.candidate.name}}"
+                src="{{candidate.image}}"
+                alt="{{candidate.name}}"
+                title="{{candidate.name}}"
                 style="width: 300px"
               />
               <h3 class="text-lg mt-1 tracking-tight font-semibold">
-                {{election.candidate.known_as}}
+                {{candidate.known_as}}
               </h3>
               <div
                 class="text-base leading-7 text-gray-600 transition-all duration-300"
               >
                 <p class="text-base text-gray-400">
-                  {{election.candidate.current_party}}
+                  {{candidate.current_party}}
                 </p>
                 <p class="text-sm text-gray-700">
-                  <strong>Platform:</strong> {{election.candidate.platform}}
+                  <strong>Platform:</strong> {{candidate.platform}}
                 </p>
                 <p class="text-sm text-gray-700">
-                  <strong>Keywords:</strong> {{election.candidate.keywords}}
+                  <strong>Keywords:</strong> {{candidate.keywords}}
                 </p>
               </div>
               <div class="text-base font-semibold leading-7">
@@ -76,6 +77,15 @@
           </div>
           {% endfor %}
         </div>
+        {% else %}
+        <div class="flex flex-col items-center gap-4">
+          <h2 class="text-2xl">No candidates found</h2>
+          <p class="text-lg">
+            There are no candidates for this election yet. Please check back
+            later.
+          </p>
+        </div>
+        {% endif %}
         <a href="/">Go back</a>
       </main>
       <footer class="flex flex-col items-center gap-2 w-full bg-white bottom-0">
@@ -100,7 +110,7 @@
             </button>
           </a>
           <a
-            href="https://github.com/42piratas/VOTEgpt/blob/main/CONTRIBUTE.md"
+            href="https://github.com/42piratas/VOTEgpt/blob/main/CONTRIBUTING.md"
             target="_blank"
           >
             <button

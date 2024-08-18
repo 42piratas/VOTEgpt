@@ -76,7 +76,7 @@
           </button>
         </a>
         <a
-          href="https://github.com/42piratas/VOTEgpt/blob/main/CONTRIBUTE.md"
+          href="https://github.com/42piratas/VOTEgpt/blob/main/CONTRIBUTING.md"
           target="_blank"
         >
           <button
@@ -132,80 +132,83 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        const countrySelect = document.getElementById('countrySelect');
-        const countryModal = document.getElementById('countryModal');
-        const modalContent = document.getElementById('modalContent');
-        const modalTitle = document.getElementById('modalTitle');
-        const closeModal = document.getElementById('closeModal');
+      const countrySelect = document.getElementById('countrySelect');
+      const countryModal = document.getElementById('countryModal');
+      const modalContent = document.getElementById('modalContent');
+      const modalTitle = document.getElementById('modalTitle');
+      const closeModal = document.getElementById('closeModal');
 
-        countrySelect.addEventListener('change', function() {
-            const selectedCountry = countrySelect.options[countrySelect.selectedIndex];
-            let country = selectedCountry.getAttribute('data-label');
-            country = JSON.parse(country.replace(/'/g, '"').replace(/True/g, 'true').replace(/False/g, 'false'));
-            modalTitle.innerHTML = `
-                <img src="https://flagcdn.com/w80/${country.code.toLowerCase()}.png" alt="Flag of ${country.label}">
-                <span class="text-2xl bold">${country.label}</span>
-            `;
-            modalContent.innerHTML = `<p>Loading...</p>`;
+      countrySelect.addEventListener('change', function() {
+        const selectedCountry = countrySelect.options[countrySelect.selectedIndex];
+        let country = selectedCountry.getAttribute('data-label');
+        country = JSON.parse(country.replace(/'/g, '"').replace(/True/g, 'true').replace(/False/g, 'false'));
+        modalTitle.innerHTML = `
+          <img src="https://flagcdn.com/w80/${country.code.toLowerCase()}.png" alt="Flag of ${country.label}">
+          <span class="text-2xl bold">${country.label}</span>
+        `;
+        modalContent.innerHTML = `<p>Loading...</p>`;
 
-            // Fetch the election data for the selected country
-            fetch(`/elections/${country.label}/${country.id}/`)
-              .then(response => response.json())
-              .then(data => {
-                console.log(data)
-                  if (data.elections && Array.isArray(data.data)) {
-                      let content = `<ul class="flex flex-col gap-2 mb-2">`;
-                      data.data.forEach(election => {
-                          content += `<a href="/election/${election.id}"><li class="p-4 border border-black rounded">${election.election_type}: ${election.date}</li></a>`;
-                      });
-                      content += `</ul>`;
-                      content += `<div class="flex"><p>Sources:</p>`;
-                      if (Array.isArray(data.sources)) {
-                          data.sources.forEach(source => {
-                              content += `<a href="${source}" target="_blank" style="color: rgb(59 130 246);">[*]</a>`;
-                          });
-                          content += `</div>`;
-                      } else if (typeof data.sources === 'string') {
-                          const sourcesArray = data.sources.split(',');
-                          sourcesArray.forEach(source => {
-                              content += `<a href="${source.trim()}" target="_blank" style="color: rgb(59 130 246);">[*]</a>`;
-                          });
-                          content += `</div>`;
-                      } else {
-                          content += `<p>No sources available.</p>`;
-                      }
-                      modalContent.innerHTML = content;
-                  } else {
-                      let content = `<p>No upcoming elections.</p>`;
-                      if (Array.isArray(data.sources)) {
-                          data.sources.forEach(source => {
-                              content += `<a href="${source}" target="_blank">[*]</a>`;
-                          });
-                      } else if (typeof data.sources === 'string') {
-                          const sourcesArray = data.sources.split(',');
-                          sourcesArray.forEach(source => {
-                              content += `<a href="${source.trim()}" target="_blank">[*]</a>`;
-                          });
-                      } else {
-                          content += `<p>No sources available.</p>`;                
-                      modalContent.innerHTML = `<p>No upcoming elections.</p>`;
-                    }
-                  }
-                  openModal();
-              })
-              .catch(error => {
-                  console.error("Error fetching elections data:", error);
-                  modalContent.innerHTML = `<p>Error fetching election data. Please try again later.</p>`;
+        // Fetch the election data for the selected country
+        fetch(`/elections/${country.label}/${country.id}/`)
+          .then(response => response.json())
+          .then(data => {
+              console.log("data",data.elections)
+              if (data.elections == false) {
+                console.log("is here")
+                let content = `<p>There are no upcoming elections based on our research with chatgpt .</p>`;
+                if (Array.isArray(data.sources)) {
+                  data.sources.forEach(source => {
+                      content += `<a href="${source}" target="_blank" style="color: rgb(59 130 246);">[*]</a>`;
+                  });
+                } else if (typeof data.sources === 'string') {
+                  const sourcesArray = data.sources.split(',');
+                  sourcesArray.forEach(source => {
+                      content += `<a href="${source.trim()}" target="_blank style="color: rgb(59 130 246);">[*]</a>`;
+                  });
+                } else {
+                  content += `<p>No sources available.</p>`;                
+                  modalContent.innerHTML = `<p>No upcoming elections.</p>`;
+                }
+                modalContent.innerHTML = content;
+                console.log("aqui é pra finalizar o false")
+                return;
+              } 
+              console.log("true")
+              let content = `<ul class="flex flex-col gap-2 mb-2">`;
+              data.data.forEach(election => {
+                  content += `<a href="/election/${election.id}"><li class="p-4 border border-black rounded">${election.election_type}: ${election.date}</li></a>`;
               });
+              content += `</ul>`;
+              content += `<div class="flex"><p>Sources:</p>`;
+              if (Array.isArray(data.sources)) {
+                  data.sources.forEach(source => {
+                      content += `<a href="${source}" target="_blank" style="color: rgb(59 130 246);">[*]</a>`;
+                  });
+                  content += `</div>`;
+              } else if (typeof data.sources === 'string') {
+                  const sourcesArray = data.sources.split(',');
+                  sourcesArray.forEach(source => {
+                      content += `<a href="${source.trim()}" target="_blank" style="color: rgb(59 130 246);">[*]</a>`;
+                  });
+                  content += `</div>`;
+              } else {
+                  content += `<p>No sources available.</p>`;
+              }
+              modalContent.innerHTML = content;
+          })
+          .catch(error => {
+              console.error("Error fetching elections data:", error);
+              modalContent.innerHTML = `<p>Error fetching election data. Please try again later.</p>`;
+          });
 
-            // Show the modal
-            countryModal.classList.remove('hidden');
-            countryModal.classList.add('flex');
-        });
+          // Show the modal
+          countryModal.classList.remove('hidden');
+          countryModal.classList.add('flex');
+      });
 
-        closeModal.addEventListener('click', function() {
-            countryModal.classList.add('hidden');
-        });
+      closeModal.addEventListener('click', function() {
+          countryModal.classList.add('hidden');
+      });
     });
 
   </script>
