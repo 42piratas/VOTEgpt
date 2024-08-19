@@ -5,209 +5,237 @@
     <title>VoteGPT</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- description -->
-    <meta
-      name="description"
-      content="KNOW YOUR CANDIDATES, LEAD THE CHANGE."
+    <meta name="description" content="KNOW YOUR CANDIDATES, LEAD THE CHANGE." />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="static/favicon-32x32.png"
     />
-    <link rel="icon" type="image/png" sizes="32x32" href="static/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="static/favicon-16x16.png">
-    <link rel="manifest" href="static/site.webmanifest">
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="static/favicon-16x16.png"
+    />
+    <link rel="manifest" href="static/site.webmanifest" />
     <link
       href="{{url_for('static',filename='css/main.css')}}"
       rel="stylesheet"
     />
   </head>
-  <body class="flex flex-col min-h-screen justify-center py-2">
-    <main class="flex flex-col items-center justify-center gap-8 my-auto">
-      <div class="text-center flex flex-col items-center gap-5">
-        <img
-          src="../static/images/vote-gpt-logo.png"
-          alt="VoteGPT Logpo"
-          style="width: 350px"
-        />
-        <select id="countrySelect" class="block w-full p-2 border border-gray-300 rounded">
-            <option value="">Select a country</option>
-            {% for country in countries %}
-            <option value="{{ country.code }}" data-label="{{ country }}">
-                {{ country.label }}
-            </option>
-            {% endfor %}
+  <body class="flex flex-col items-center min-h-screen justify-between">
+    <div class="my-auto">
+      <img
+        src="../static/images/vote-gpt-logo.png"
+        alt="VoteGPT Logpo"
+        style="width: 350px; margin-bottom: 50px"
+      />
+      <div>
+        <select
+          id="countrySelect"
+          class="block w-1/3 p-2 border border-gray-300 rounded"
+        >
+          <option value="">Select a country</option>
+          {% for country in countries %}
+          <option value="{{ country.code }}" data-label="{{ country }}">
+            {{ country.label }}
+          </option>
+          {% endfor %}
         </select>
-        
-        <div class='flex w-full justify-center gap-4'>
+
+        <div class="flex w-full justify-center mt-2 gap-4">
           <a
-            href='https://github.com/42piratas/VOTEgpt/wiki'
-            class='text-base text-[#2592BF] underline hover:text-[#1a749b]'
-            target='_blank'
+            href="https://github.com/42piratas/VOTEgpt/wiki"
+            class="text-base text-[#2592BF] underline hover:text-[#1a749b]"
+            target="_blank"
           >
             How it works
           </a>
           <a
-            href='https://github.com/42piratas/VOTEgpt/issues/new'
-            class='text-base text-[#2592BF] underline hover:text-[#1a749b]'
-            target='_blank'
+            href="https://github.com/42piratas/VOTEgpt/issues/new"
+            class="text-base text-[#2592BF] underline hover:text-[#1a749b]"
+            target="_blank"
           >
             Feedback/Report
           </a>
         </div>
       </div>
-      <!-- Modal Country -->
-      <div id="countryModal" class="fixed inset-0 bg-gray-600 min-h-screen bg-opacity-50 hidden justify-center items-center">
-        <div class="p-5 rounded-lg shadow-lg m-auto bg-white w-[800px]">
-            <div class="flex justify-between items-center mb-5 gap-5">
-                <div id="modalTitle" class="flex items-center w-full gap-5">Country Details</div>
-                <button id="closeModal" class="text-gray-500 hover:text-gray-700">&times;</button>
-            </div>
-            <div id="modalContent">
-                <!-- Country details will be inserted here -->
-            </div>
+    </div>
+    <!-- Modal Country -->
+    <div
+      id="countryModal"
+      class="fixed inset-0 bg-gray-600 min-h-screen bg-opacity-50 hidden justify-center items-center"
+    >
+      <div class="p-5 rounded-lg shadow-lg m-auto bg-white w-[800px]">
+        <div class="flex justify-between items-center mb-5 gap-5">
+          <div id="modalTitle" class="flex items-center w-full gap-5">
+            Country Details
+          </div>
+          <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+            &times;
+          </button>
         </div>
-    </main>
+        <div id="modalContent">
+          <!-- Country details will be inserted here -->
+        </div>
+      </div>
+    </div>
     <footer class="flex flex-col items-center gap-2 w-full bg-white bottom-0">
       <div class="flex gap-2 items-center justify-between p-2">
-        <a class="bg-blue-500 hover:bg-blue-600 text-white flex font-bold rounded items-center p-2"
+        <a
+          class="bg-blue-500 hover:bg-blue-600 text-white flex font-bold rounded items-center p-2"
           href="#"
         >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-              width="20"
-              height="20"
-            >
-              <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-              <path
-                d="M311.9 260.8L160 353.6 8 260.8 160 0l151.9 260.8zM160 383.4L8 290.6 160 512l152-221.4-152 92.8z"
-                fill="#FFFFFF"
-              />
-            </svg>
-            DONATE
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            width="20"
+            height="20"
+          >
+            <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+            <path
+              d="M311.9 260.8L160 353.6 8 260.8 160 0l151.9 260.8zM160 383.4L8 290.6 160 512l152-221.4-152 92.8z"
+              fill="#FFFFFF"
+            />
+          </svg>
+          <p class="text-sm">DONATE</p>
         </a>
-        <a class="bg-blue-500 hover:bg-blue-600 text-white flex font-bold rounded items-center p-2 gap-2"
+        <a
+          class="bg-blue-500 hover:bg-blue-600 text-white flex font-bold rounded items-center p-2 gap-2"
           href="https://github.com/42piratas/VOTEgpt/blob/main/CONTRIBUTING.md"
           target="_blank"
         >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-              width="20"
-              height="20"
-            >
-              <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-              <path
-                d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"
-                fill="#FFFFFF"
-              />
-            </svg>
-            BUIDL
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            width="20"
+            height="20"
+          >
+            <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+            <path
+              d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"
+              fill="#FFFFFF"
+            />
+          </svg>
+          <p class="text-sm">BUIDL</p>
         </a>
-        <a class="bg-blue-500 hover:bg-blue-600 text-white flex font-bold rounded items-center p-2 gap-2"
+        <a
+          class="bg-blue-500 hover:bg-blue-600 text-white flex font-bold rounded items-center p-2 gap-2"
           href="https://github.com/42piratas/VOTEgpt/blob/main/LICENSE.md"
           target="_blank"
         >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-              width="20"
-              height="20"
-              transform="rotate(180)"
-            >
-              <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-              <path
-                d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM199.4 312.6c-31.2-31.2-31.2-81.9 0-113.1s81.9-31.2 113.1 0c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9c-50-50-131-50-181 0s-50 131 0 181s131 50 181 0c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0c-31.2 31.2-81.9 31.2-113.1 0z"
-                fill="#FFFFFF"
-              />
-            </svg>
-            GPL-3.0
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            width="20"
+            height="20"
+            transform="rotate(180)"
+          >
+            <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+            <path
+              d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM199.4 312.6c-31.2-31.2-31.2-81.9 0-113.1s81.9-31.2 113.1 0c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9c-50-50-131-50-181 0s-50 131 0 181s131 50 181 0c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0c-31.2 31.2-81.9 31.2-113.1 0z"
+              fill="#FFFFFF"
+            />
+          </svg>
+          <p class="text-sm">GPL-3.0</p>
         </a>
       </div>
     </footer>
   </body>
   <script>
     function openModal() {
-        const countryModal = document.getElementById('countryModal');
-        countryModal.classList.remove('hidden');
-        countryModal.classList.add('flex');
+      const countryModal = document.getElementById('countryModal');
+      countryModal.classList.remove('hidden');
+      countryModal.classList.add('flex');
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const countrySelect = document.getElementById('countrySelect');
       const countryModal = document.getElementById('countryModal');
       const modalContent = document.getElementById('modalContent');
       const modalTitle = document.getElementById('modalTitle');
       const closeModal = document.getElementById('closeModal');
 
-      countrySelect.addEventListener('change', function() {
-        const selectedCountry = countrySelect.options[countrySelect.selectedIndex];
+      countrySelect.addEventListener('change', function () {
+        const selectedCountry =
+          countrySelect.options[countrySelect.selectedIndex];
         let country = selectedCountry.getAttribute('data-label');
-        country = JSON.parse(country.replace(/'/g, '"').replace(/True/g, 'true').replace(/False/g, 'false'));
+        country = JSON.parse(
+          country
+            .replace(/'/g, '"')
+            .replace(/True/g, 'true')
+            .replace(/False/g, 'false')
+        );
         modalTitle.innerHTML = `
-          <img src="https://flagcdn.com/w80/${country.code.toLowerCase()}.png" alt="Flag of ${country.label}">
+          <img src="https://flagcdn.com/w80/${country.code.toLowerCase()}.png" alt="Flag of ${
+          country.label
+        }">
           <span class="text-2xl bold">${country.label}</span>
         `;
         modalContent.innerHTML = `<p>Loading...</p>`;
 
         // Fetch the election data for the selected country
         fetch(`/elections/${country.label}/${country.id}/`)
-          .then(response => response.json())
-          .then(data => {
-              console.log("data",data.elections)
-              if (data.elections == false) {
-                console.log("is here")
-                let content = `<p>There are no upcoming elections based on our research with chatgpt .</p>`;
-                if (Array.isArray(data.sources)) {
-                  data.sources.forEach(source => {
-                      content += `<a href="${source}" target="_blank" style="color: rgb(59 130 246);">[*]</a>`;
-                  });
-                } else if (typeof data.sources === 'string') {
-                  const sourcesArray = data.sources.split(',');
-                  sourcesArray.forEach(source => {
-                      content += `<a href="${source.trim()}" target="_blank style="color: rgb(59 130 246);">[*]</a>`;
-                  });
-                } else {
-                  content += `<p>No sources available.</p>`;                
-                  modalContent.innerHTML = `<p>No upcoming elections.</p>`;
-                }
-                modalContent.innerHTML = content;
-                console.log("aqui é pra finalizar o false")
-                return;
-              } 
-              console.log("true")
-              let content = `<ul class="flex flex-col gap-2 mb-2">`;
-              data.data.forEach(election => {
-                  content += `<a href="/election/${election.id}"><li class="p-4 border border-black rounded">${election.election_type}: ${election.date}</li></a>`;
-              });
-              content += `</ul>`;
-              content += `<div class="flex"><p>Sources:</p>`;
+          .then((response) => response.json())
+          .then((data) => {
+            console.log('data', data.elections);
+            if (data.elections == false) {
+              console.log('is here');
+              let content = `<p>There are no upcoming elections based on our research with chatgpt .</p>`;
               if (Array.isArray(data.sources)) {
-                  data.sources.forEach(source => {
-                      content += `<a href="${source}" target="_blank" style="color: rgb(59 130 246);">[*]</a>`;
-                  });
-                  content += `</div>`;
+                data.sources.forEach((source) => {
+                  content += `<a href="${source}" target="_blank" style="color: rgb(59 130 246);">[*]</a>`;
+                });
               } else if (typeof data.sources === 'string') {
-                  const sourcesArray = data.sources.split(',');
-                  sourcesArray.forEach(source => {
-                      content += `<a href="${source.trim()}" target="_blank" style="color: rgb(59 130 246);">[*]</a>`;
-                  });
-                  content += `</div>`;
+                const sourcesArray = data.sources.split(',');
+                sourcesArray.forEach((source) => {
+                  content += `<a href="${source.trim()}" target="_blank style="color: rgb(59 130 246);">[*]</a>`;
+                });
               } else {
-                  content += `<p>No sources available.</p>`;
+                content += `<p>No sources available.</p>`;
+                modalContent.innerHTML = `<p>No upcoming elections.</p>`;
               }
               modalContent.innerHTML = content;
+              console.log('aqui é pra finalizar o false');
+              return;
+            }
+            console.log('true');
+            let content = `<ul class="flex flex-col gap-2 mb-2">`;
+            data.data.forEach((election) => {
+              content += `<a href="/election/${election.id}"><li class="p-4 border border-black rounded">${election.election_type}: ${election.date}</li></a>`;
+            });
+            content += `</ul>`;
+            content += `<div class="flex"><p>Sources:</p>`;
+            if (Array.isArray(data.sources)) {
+              data.sources.forEach((source) => {
+                content += `<a href="${source}" target="_blank" style="color: rgb(59 130 246);">[*]</a>`;
+              });
+              content += `</div>`;
+            } else if (typeof data.sources === 'string') {
+              const sourcesArray = data.sources.split(',');
+              sourcesArray.forEach((source) => {
+                content += `<a href="${source.trim()}" target="_blank" style="color: rgb(59 130 246);">[*]</a>`;
+              });
+              content += `</div>`;
+            } else {
+              content += `<p>No sources available.</p>`;
+            }
+            modalContent.innerHTML = content;
           })
-          .catch(error => {
-              console.error("Error fetching elections data:", error);
-              modalContent.innerHTML = `<p>Error fetching election data. Please try again later.</p>`;
+          .catch((error) => {
+            console.error('Error fetching elections data:', error);
+            modalContent.innerHTML = `<p>Error fetching election data. Please try again later.</p>`;
           });
 
-          // Show the modal
-          countryModal.classList.remove('hidden');
-          countryModal.classList.add('flex');
+        // Show the modal
+        countryModal.classList.remove('hidden');
+        countryModal.classList.add('flex');
       });
 
-      closeModal.addEventListener('click', function() {
-          countryModal.classList.add('hidden');
+      closeModal.addEventListener('click', function () {
+        countryModal.classList.add('hidden');
       });
     });
-
   </script>
 </html>
