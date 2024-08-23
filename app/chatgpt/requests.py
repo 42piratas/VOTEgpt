@@ -17,30 +17,30 @@ sources_reliable = "Ensure the data is sourced from reliable, impartial sources,
 
 # This query has already been performed and adjusted in the database.
 # It is still here because it can be used in the future.
-def verify_democratic(country):
-    completion = client.chat.completions.create(
-        model="gpt-4o",
-        messages=[
-            {
-                "role": "system",
-                "content": f"Please, respond with only 'TRUE' or 'FALSE': is {country} democratic or not? Format the response as follows: [TRUE|FALSE, ['Source 1's URL', ..., 'Source N's URL']]. {sources_strict}",
-            },
-        ],
-    )
-    data = completion.choices[0].message.content
-    data = re.sub(r"(?<!\\)'", '"', data)  # Fix apostrophes to double quotes
-    data = json.loads(data)  # Convert JSON string to Python object
-    
-    return {
-        "democratic": data[0],
-        "sources": data[1]
-    }
+def verify_democratic(country_id):
+    country = Country.query.filter_by(id=country_id).first()
+    if not country:
+        return jsonify({"error": "Country not found."}), 404
+    if country.is_democracy:
+        return True
+    else:
+        return False
 
 def get_country_elections(country, country_id):
     try:
         # Make sure country_id is an integer
         if not isinstance(country_id, int):
             raise ValueError("Invalid country_id, expected an integer.")
+        
+        # check if country is democratic or not
+        democratic = verify_democratic(country_id)
+        if not democratic:
+            print(f"{country} is not a democratic country.")
+            return {
+                "elections": "Non-democratic",
+                "data": f"{country} is not a democratic country.",
+                "sources": []
+            }
 
         # Check if there are already elections in the database for the country within the desired period
         existing_elections = ElectionData.query.filter_by(country_id=country_id).all()
@@ -80,8 +80,8 @@ def get_country_elections(country, country_id):
             ],
         )
         data = completion.choices[0].message.content
-        print('return from chatgpt:',data)  
-        # se retorno for neste modelo -> [FALSE, ['https://www.ifes.org', 'https://www.electionguide.org', 'https://www.ipu.org', 'https://www.idea.int']], retornar mensagem de No upcoming elections e as fontes consultadas
+        print('return from chatgpt:',data)
+        # if model has FALSE return message of no upcomming elections and source
         if 'FALSE' in data:
             return {
                 "elections": False,
