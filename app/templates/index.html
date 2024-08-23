@@ -68,7 +68,7 @@
       id="countryModal"
       class="fixed inset-0 bg-gray-600 min-h-screen bg-opacity-50 hidden justify-center items-center"
     >
-      <div class="p-5 rounded-lg shadow-lg m-auto bg-white w-[800px]">
+      <div class="p-5 rounded-lg shadow-lg m-auto bg-white w-[500px]">
         <div class="flex justify-between items-center mb-5 gap-5">
           <div id="modalTitle" class="flex items-center w-full gap-5">
             Country Details
@@ -246,6 +246,10 @@
         fetch(`/elections/${country.label}/${country.id}/`)
           .then((response) => response.json())
           .then((data) => {
+            if(data.elections == 'Non-democratic') {
+              modalContent.innerHTML = data.data;
+              return;
+            }
             if (data.elections == false) {
               let content = `<p>There are no upcoming elections based on our research with chatgpt .</p>`;
               if (Array.isArray(data.sources)) {
