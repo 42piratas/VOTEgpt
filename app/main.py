@@ -18,7 +18,8 @@ migrate = Migrate(app, db)
 @app.route("/index")
 def index():
     countries = get_countries()
-    return render_template("index.html", countries=countries)
+    wallet_address = config('WALLET_ADDRESS')
+    return render_template("index.html", countries=countries, wallet_address=wallet_address)
 
 @app.route("/democracy/<string:country>/")
 def getDemocracy(country):
