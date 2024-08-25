@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, render_template
-from chatgpt.requests import get_candidate_by_country_and_election, get_country_elections, verify_democratic
+from chatgpt.requests import get_country_elections, verify_democratic
 from database.db_setup import db
 from decouple import config
 from flask_migrate import Migrate
