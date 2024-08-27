@@ -64,7 +64,8 @@ def get_country_elections(country, country_id):
 
         # If there is no data, perform a query on ChatGPT
         completion = client.chat.completions.create(
-            model="gpt-4o",
+            # model="gpt-4o",
+            model="gpt-3.5-turbo",
             messages=[
                 {
                     "role": "system",
@@ -195,7 +196,8 @@ def get_candidate_by_country_and_election(election):
 
         # If there is no data, perform a query on ChatGPT
         completion = client.chat.completions.create(
-            model="gpt-4o",
+            # model="gpt-4o",
+            model="gpt-3.5-turbo",
             messages=[
                 {
                     "role": "system",
