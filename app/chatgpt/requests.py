@@ -80,7 +80,6 @@ def get_country_elections(country, country_id):
             ],
         )
         data = completion.choices[0].message.content
-        print('return from chatgpt:',data)
         # if model has FALSE return message of no upcomming elections and source
         if 'FALSE' in data:
             return {
@@ -120,7 +119,7 @@ def get_country_elections(country, country_id):
         return {"error": str(ve)}
     except Exception as e:
         print(f"Error fetching elections (Exception): {e}")
-        return {"error": "An error occurred while fetching elections"}
+        return {"error": f"An error occurred while fetching elections: {e}"}
 
 def insert_election(election_type, election_date, country_id, sources):
     try:
@@ -147,7 +146,7 @@ def insert_election(election_type, election_date, country_id, sources):
 def get_candidate_by_country_and_election(election):
     try:
         existing_candidates = Candidate.query.filter_by(election_id=election.id).all()
-        
+        print('existing_candidates:', existing_candidates)
         if existing_candidates:
             # Se houver candidatos na base de dados, retornamos os dados com as informações relevantes
             candidates_data = [
@@ -205,7 +204,7 @@ def get_candidate_by_country_and_election(election):
             ],
         )
         data = completion.choices[0].message.content
-        print('return from chatgpt:',data)
+        print('return candidate from chatgpt:',data)
         if 'FALSE' in data:
             return {
                 "elections": False,
@@ -220,4 +219,4 @@ def get_candidate_by_country_and_election(election):
         return {"error": str(ve)}
     except Exception as e:
         print(f"Error fetching elections: {e}")
-        return {"error": "An error occurred while fetching elections"}
+        return {"error": f"An error occurred while fetching elections: {e}"}
