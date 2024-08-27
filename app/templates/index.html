@@ -307,22 +307,22 @@
               return;
             }
             let content = `<ul class="flex flex-col gap-2 mb-2">`;
+            console.log(data.data);
             data.data.forEach((election) => {
-              console.log(election);
               content += `<a href="/election/${election.id}"><li class="p-4 border border-black rounded">${election.election_type}: ${election.date}</li></a>`;
             });
             content += `</ul>`;
             content += `<div class="flex"><p>Sources:</p>`;
             if (Array.isArray(data.sources)) {
+              console.log(data.sources);
               data.sources.forEach((source) => {
-                console.log(source);
                 content += `<a href="${source}" target="_blank" style="color: rgb(59 130 246);">[*]</a>`;
               });
               content += `</div>`;
             } else if (typeof data.sources === 'string') {
               const sourcesArray = data.sources.split(',');
+              console.log(sourcesArray);
               sourcesArray.forEach((source) => {
-                console.log(source);
                 content += `<a href="${source.trim()}" target="_blank" style="color: rgb(59 130 246);">[*]</a>`;
               });
               content += `</div>`;
