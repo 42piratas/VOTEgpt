@@ -282,6 +282,7 @@
         fetch(`/elections/${country.label}/${country.id}/`)
           .then((response) => response.json())
           .then((data) => {
+            console.log(data);
             if (data.elections == 'Non-democratic') {
               modalContent.innerHTML = data.data;
               return;
