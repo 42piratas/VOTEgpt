@@ -178,11 +178,6 @@
       </div>
     </footer>
   </body>
-  <script>
-    function closeModal() {
-      document.getElementById('modal').style.display = 'none';
-    }
-  </script>
   <!-- script donate -->
   <script>
     var MY_ADDRESS = '{{ wallet_address }}';
@@ -247,6 +242,11 @@
     }
   </script>
   <script>
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+  </script>
+  <script>
     function openModal() {
       const countryModal = document.getElementById('countryModal');
       countryModal.classList.remove('hidden');
@@ -288,11 +288,13 @@
             }
             if (data.elections == false) {
               let content = `<p>There are no upcoming elections based on our research with chatgpt .</p>`;
+              console.log('Data sources:', data.sources);
               if (Array.isArray(data.sources)) {
                 data.sources.forEach((source) => {
                   content += `<a href="${source}" target="_blank" style="color: rgb(59 130 246);">[*]</a>`;
                 });
               } else if (typeof data.sources === 'string') {
+                console.log('Data sources:', data.sources);
                 const sourcesArray = data.sources.split(',');
                 sourcesArray.forEach((source) => {
                   content += `<a href="${source.trim()}" target="_blank style="color: rgb(59 130 246);">[*]</a>`;
@@ -306,18 +308,21 @@
             }
             let content = `<ul class="flex flex-col gap-2 mb-2">`;
             data.data.forEach((election) => {
+              console.log(election);
               content += `<a href="/election/${election.id}"><li class="p-4 border border-black rounded">${election.election_type}: ${election.date}</li></a>`;
             });
             content += `</ul>`;
             content += `<div class="flex"><p>Sources:</p>`;
             if (Array.isArray(data.sources)) {
               data.sources.forEach((source) => {
+                console.log(source);
                 content += `<a href="${source}" target="_blank" style="color: rgb(59 130 246);">[*]</a>`;
               });
               content += `</div>`;
             } else if (typeof data.sources === 'string') {
               const sourcesArray = data.sources.split(',');
               sourcesArray.forEach((source) => {
+                console.log(source);
                 content += `<a href="${source.trim()}" target="_blank" style="color: rgb(59 130 246);">[*]</a>`;
               });
               content += `</div>`;

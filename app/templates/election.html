@@ -5,6 +5,7 @@
     <title>VoteGPT - {{election.country.label}} Election</title>
     <!-- description -->
     <meta name="description" content="KNOW YOUR CANDIDATES, LEAD THE CHANGE." />
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.0/dist/ethers.umd.min.js"></script>
     <link
       rel="icon"
       type="image/png"
@@ -167,6 +168,71 @@
           </a>
         </div>
       </footer>
+      <!-- script donate -->
+      <script>
+        var MY_ADDRESS = '{{ wallet_address }}';
+        var tipButton = document.querySelector('#donateButton');
+
+        tipButton.addEventListener('click', async function () {
+          if (typeof window.ethereum === 'undefined') {
+            throw new Error('MetaMask is not installed');
+          }
+          await sendDonation();
+        });
+
+        async function connectMetaMask() {
+          if (window.ethereum) {
+            try {
+              // Solicita ao usuário para conectar suas contas do MetaMask
+              const accounts = await ethereum.request({
+                method: 'eth_requestAccounts',
+              });
+              return accounts[0]; // Retorna o endereço da conta conectada
+            } catch (error) {
+              console.error('Erro ao conectar ao MetaMask:', error);
+            }
+          } else {
+            alert(
+              'MetaMask não está instalado. Por favor, instale-o para continuar.'
+            );
+          }
+        }
+
+        async function sendDonation() {
+          const recipientAddress = MY_ADDRESS; // Substitua pelo endereço da carteira de destino
+          const amountInEth = '0.01'; // Valor da doação em ETH (0.01 ETH neste exemplo)
+
+          const account = await connectMetaMask();
+          if (!account) {
+            return;
+          }
+
+          try {
+            const transactionParameters = {
+              to: recipientAddress,
+              from: account,
+              value: ethers.utils
+                .parseUnits(amountInEth, 'ether')
+                .toHexString(),
+            };
+
+            // Envia a transação usando MetaMask
+            const txHash = await ethereum.request({
+              method: 'eth_sendTransaction',
+              params: [transactionParameters],
+            });
+
+            console.log('Transação enviada! Hash:', txHash);
+          } catch (error) {
+            console.error('Erro ao enviar a doação:', error);
+          }
+        }
+
+        function renderMessage(message) {
+          var messageEl = document.querySelector('.message');
+          messageEl.innerHTML = message;
+        }
+      </script>
     </div>
   </body>
 </html>
