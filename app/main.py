@@ -4,8 +4,12 @@ from database.db_setup import db
 from decouple import config
 from flask_migrate import Migrate
 from functions import get_candidate_by_id, get_countries, get_elections_by_id
+from openai import OpenAI
 
 app = Flask(__name__)
+client = OpenAI(
+    api_key=config('OPENAI_API_KEY'),
+)
 
 # database configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = config('DATABASE_URL')
@@ -38,9 +42,16 @@ def getElections(country, country_id):
 
 @app.route("/election/<string:election_id>/")
 def getElection(election_id):
+    wallet_address = config('WALLET_ADDRESS')
     election = get_elections_by_id(election_id)
-    print(type(election['candidate']))
-    return render_template("election.html", election=election, candidates=election['candidate'])
+    print("election", election)
+    return render_template("election.html", election=election, wallet_address=wallet_address)
+
+# @app.route("/candidate/<string:election_id>")
+# def getCandidatesByElction(election_id):
+    
+    
+#     return candidates
 
 @app.route("/candidate/<string:candidate_id>/")
 def getCandidate(candidate_id):

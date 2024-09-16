@@ -1,4 +1,4 @@
-from chatgpt.requests import get_candidate_by_country_and_election
+from chatgpt.requests import get_candidate_by_country_and_election, get_full_data_from_candidate
 from database.db_setup import db
 from database.models import Candidate, Country, ElectionData
 
@@ -48,7 +48,21 @@ def get_elections_by_id(election_id):
         # Querying election and related country data
         election = db.session.query(ElectionData).join(Country).filter(ElectionData.id == election_id).first()
         candidate = get_candidate_by_country_and_election(election)
-        print(candidate)
+        candidate_full_data = []
+        for candidate in candidate['data'][3]:
+            candidate_profile_a: str = (
+                "Please, provide detailed information about the political candidate "
+                "named {candidate_name} from {country}. "
+                "Include the following details and return 'Unknown' for any information that is not available. "
+                "Format the response as follows: "
+                "{{'born': [location, date, age] | 'Unknown', 'nationality': [nationality(ies)] | 'Unknown', "
+                "'religion': Religion | 'Unknown', 'education': [education] | 'Unknown', "
+                "'current-party': [current-party] | 'Unknown', 'previous-party(ies)': [previous-party(ies)] | 'Unknown', "
+                "'political-experience': [political role (1999-2099)] | 'Unknown', 'endorsements': [endorsements] | 'Unknown', "
+                "'funding-sources': [funding-sources] | 'Unknown'}}, ['SOURCE's URL 1', ..., 'SOURCE's URL N']]."
+            ).format(candidate_name=candidate, country=election.country.label)
+            candidate_data = get_full_data_from_candidate(candidate_profile_a)
+            candidate_full_data.append(candidate_data)
         if not candidate:
             election_data = {
                 'id': election.id,
@@ -77,7 +91,7 @@ def get_elections_by_id(election_id):
                             'label': election.country.label,
                             'code': election.country.code,
                         },
-            'candidate': candidate,
+            'candidate': candidate_full_data,
             'sources': election.sources,
         }
         # Return the election data

@@ -50,11 +50,11 @@
             {{election.election_type}} {{election.election_date}}
           </span>
         </div>
-        {% if candidates %}
+        {% if election.candidate %}
         <div
           class="grid gap-8 md:grid-cols-2 lg:grid-cols-4 lg:overflow-auto px-20 md:px-20 md:py-10"
         >
-          {% for candidate in candidates %}
+          {% for candidate in election.candidate %}
           <div
             class="group relative cursor-pointer overflow-hidden bg-white px-2 pt-6 pb-4 shadow-2xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10"
           >
@@ -67,16 +67,15 @@
                 style="width: 300px"
               />
               <h3 class="text-lg mt-1 tracking-tight font-semibold">
-                {{candidate.known_as}}
+                {{candidate}}
               </h3>
               <div
                 class="text-base leading-7 text-gray-600 transition-all duration-300"
               >
                 <p class="text-base text-gray-400">
-                  {{candidate.current_party}}
                 </p>
                 <p class="text-sm text-gray-700">
-                  <strong>Platform:</strong> {{candidate.platform}}
+                  <strong>Platform:</strong> Platform
                 </p>
                 <p class="text-sm text-gray-700">
                   <strong>Keywords:</strong> {{candidate.keywords}}
