@@ -1,4 +1,4 @@
-from chatgpt.requests import get_candidate_by_country_and_election
+from chatgpt.requests import get_candidate_by_country_and_election, get_full_data_from_candidate
 from database.db_setup import db
 from database.models import Candidate, Country, ElectionData
 
@@ -47,41 +47,22 @@ def get_elections_by_id(election_id):
         # Fetch election data by ID
         # Querying election and related country data
         election = db.session.query(ElectionData).join(Country).filter(ElectionData.id == election_id).first()
-        # candidate = get_candidate_by_country_and_election(election)
-        candidate = {
-            "id": 1,
-            "name": "John Doe",
-            "known_as": "JD",
-            "born": "1965-05-15",
-            "nationality": "American",
-            "religion": "Christian",
-            "education": "Harvard University, BA in Political Science",
-            "bio": "John Doe is a seasoned politician with over 30 years of experience in public service...",
-            "current_party": "Democratic Party",
-            "previous_parties": ["Independent", "Republican"],
-            "platform": "Focused on healthcare reform, economic equality, and climate change.",
-            "keywords": ["healthcare", "economy", "climate"],
-            "political_experience": "Served as a senator for 20 years, mayor for 8 years.",
-            "notorious_for": "Advocating for universal healthcare.",
-            "endorsements": ["Healthcare Workers Union", "Environmental Protection Group"],
-            "funding_sources": ["Small Donations", "Environmental NGOs"],
-            "criminal_records": [],
-            "abortion": "Pro-choice, supports access to safe and legal abortions.",
-            "health_care": "Advocates for universal healthcare.",
-            "economy": "Supports progressive taxation and economic equality.",
-            "immigration": "Favors comprehensive immigration reform with a path to citizenship.",
-            "gun_control": "Supports strict background checks and restrictions on assault weapons.",
-            "gun_control_short": "Pro-gun control.",
-            "climate_change": "Supports aggressive measures to combat climate change.",
-            "taxes": "Supports higher taxes on the wealthy.",
-            "lgbtq_rights": "Strong advocate for LGBTQ+ rights, supports marriage equality.",
-            "lgbtq_rights_short": "Pro-LGBTQ+ rights.",
-            "foreign_policy": "Favors diplomatic solutions and international cooperation.",
-            "drug_policy": "Supports decriminalization of marijuana.",
-            "criminal_justice_reform": "Advocates for reforming the criminal justice system to reduce incarceration rates.",
-            "military_spending": "Favors reducing military spending in favor of domestic programs.",
-            "voting_rights": "Supports expanding voting rights and making voting more accessible."
-        }
+        candidate = get_candidate_by_country_and_election(election)
+        candidate_full_data = []
+        for candidate in candidate['data'][3]:
+            candidate_profile_a: str = (
+                "Please, provide detailed information about the political candidate "
+                "named {candidate_name} from {country}. "
+                "Include the following details and return 'Unknown' for any information that is not available. "
+                "Format the response as follows: "
+                "{{'born': [location, date, age] | 'Unknown', 'nationality': [nationality(ies)] | 'Unknown', "
+                "'religion': Religion | 'Unknown', 'education': [education] | 'Unknown', "
+                "'current-party': [current-party] | 'Unknown', 'previous-party(ies)': [previous-party(ies)] | 'Unknown', "
+                "'political-experience': [political role (1999-2099)] | 'Unknown', 'endorsements': [endorsements] | 'Unknown', "
+                "'funding-sources': [funding-sources] | 'Unknown'}}, ['SOURCE's URL 1', ..., 'SOURCE's URL N']]."
+            ).format(candidate_name=candidate, country=election.country.label)
+            candidate_data = get_full_data_from_candidate(candidate_profile_a)
+            candidate_full_data.append(candidate_data)
         if not candidate:
             election_data = {
                 'id': election.id,
@@ -110,40 +91,7 @@ def get_elections_by_id(election_id):
                             'label': election.country.label,
                             'code': election.country.code,
                         },
-            'candidate': [{
-                "id": 1,
-                "name": "John Doe",
-                "known_as": "JD",
-                "born": "1965-05-15",
-                "nationality": "American",
-                "religion": "Christian",
-                "education": "Harvard University, BA in Political Science",
-                "bio": "John Doe is a seasoned politician with over 30 years of experience in public service...",
-                "current_party": "Democratic Party",
-                "previous_parties": ["Independent", "Republican"],
-                "platform": "Focused on healthcare reform, economic equality, and climate change.",
-                "keywords": ["healthcare", "economy", "climate"],
-                "political_experience": "Served as a senator for 20 years, mayor for 8 years.",
-                "notorious_for": "Advocating for universal healthcare.",
-                "endorsements": ["Healthcare Workers Union", "Environmental Protection Group"],
-                "funding_sources": ["Small Donations", "Environmental NGOs"],
-                "criminal_records": [],
-                "abortion": "Pro-choice, supports access to safe and legal abortions.",
-                "health_care": "Advocates for universal healthcare.",
-                "economy": "Supports progressive taxation and economic equality.",
-                "immigration": "Favors comprehensive immigration reform with a path to citizenship.",
-                "gun_control": "Supports strict background checks and restrictions on assault weapons.",
-                "gun_control_short": "Pro-gun control.",
-                "climate_change": "Supports aggressive measures to combat climate change.",
-                "taxes": "Supports higher taxes on the wealthy.",
-                "lgbtq_rights": "Strong advocate for LGBTQ+ rights, supports marriage equality.",
-                "lgbtq_rights_short": "Pro-LGBTQ+ rights.",
-                "foreign_policy": "Favors diplomatic solutions and international cooperation.",
-                "drug_policy": "Supports decriminalization of marijuana.",
-                "criminal_justice_reform": "Advocates for reforming the criminal justice system to reduce incarceration rates.",
-                "military_spending": "Favors reducing military spending in favor of domestic programs.",
-                "voting_rights": "Supports expanding voting rights and making voting more accessible."
-            }],
+            'candidate': candidate_full_data,
             'sources': election.sources,
         }
         # Return the election data

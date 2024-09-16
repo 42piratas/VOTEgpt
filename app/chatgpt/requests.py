@@ -17,30 +17,30 @@ sources_reliable = "Ensure the data is sourced from reliable, impartial sources,
 
 # This query has already been performed and adjusted in the database.
 # It is still here because it can be used in the future.
-def verify_democratic(country):
-    completion = client.chat.completions.create(
-        model="gpt-4o",
-        messages=[
-            {
-                "role": "system",
-                "content": f"Please, respond with only 'TRUE' or 'FALSE': is {country} democratic or not? Format the response as follows: [TRUE|FALSE, ['Source 1's URL', ..., 'Source N's URL']]. {sources_strict}",
-            },
-        ],
-    )
-    data = completion.choices[0].message.content
-    data = re.sub(r"(?<!\\)'", '"', data)  # Fix apostrophes to double quotes
-    data = json.loads(data)  # Convert JSON string to Python object
-    
-    return {
-        "democratic": data[0],
-        "sources": data[1]
-    }
+def verify_democratic(country_id):
+    country = Country.query.filter_by(id=country_id).first()
+    if not country:
+        return jsonify({"error": "Country not found."}), 404
+    if country.is_democracy:
+        return True
+    else:
+        return False
 
 def get_country_elections(country, country_id):
     try:
         # Make sure country_id is an integer
         if not isinstance(country_id, int):
             raise ValueError("Invalid country_id, expected an integer.")
+        
+        # check if country is democratic or not
+        democratic = verify_democratic(country_id)
+        if not democratic:
+            print(f"{country} is not a democratic country.")
+            return {
+                "elections": "Non-democratic",
+                "data": f"{country} is not a democratic country.",
+                "sources": []
+            }
 
         # Check if there are already elections in the database for the country within the desired period
         existing_elections = ElectionData.query.filter_by(country_id=country_id).all()
@@ -64,7 +64,7 @@ def get_country_elections(country, country_id):
 
         # If there is no data, perform a query on ChatGPT
         completion = client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4o-mini",
             messages=[
                 {
                     "role": "system",
@@ -80,8 +80,7 @@ def get_country_elections(country, country_id):
             ],
         )
         data = completion.choices[0].message.content
-        print('return from chatgpt:',data)  
-        # se retorno for neste modelo -> [FALSE, ['https://www.ifes.org', 'https://www.electionguide.org', 'https://www.ipu.org', 'https://www.idea.int']], retornar mensagem de No upcoming elections e as fontes consultadas
+        # if model has FALSE return message of no upcomming elections and source
         if 'FALSE' in data:
             return {
                 "elections": False,
@@ -120,7 +119,7 @@ def get_country_elections(country, country_id):
         return {"error": str(ve)}
     except Exception as e:
         print(f"Error fetching elections (Exception): {e}")
-        return {"error": "An error occurred while fetching elections"}
+        return {"error": f"An error occurred while fetching elections: {e}"}
 
 def insert_election(election_type, election_date, country_id, sources):
     try:
@@ -147,7 +146,6 @@ def insert_election(election_type, election_date, country_id, sources):
 def get_candidate_by_country_and_election(election):
     try:
         existing_candidates = Candidate.query.filter_by(election_id=election.id).all()
-        
         if existing_candidates:
             # Se houver candidatos na base de dados, retornamos os dados com as informações relevantes
             candidates_data = [
@@ -196,7 +194,7 @@ def get_candidate_by_country_and_election(election):
 
         # If there is no data, perform a query on ChatGPT
         completion = client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4o-mini",
             messages=[
                 {
                     "role": "system",
@@ -205,19 +203,37 @@ def get_candidate_by_country_and_election(election):
             ],
         )
         data = completion.choices[0].message.content
-        print('return from chatgpt:',data)
+        # print('return candidate from chatgpt:',data)
         if 'FALSE' in data:
             return {
                 "elections": False,
                 "sources": ["IFES", "ElectionGuide.org", "IPU", "International IDEA"]
             }
         resultado = ast.literal_eval(data)
-        
-        return {"elections": True, "data": resultado[0], "sources": resultado[1]}
+        # print('resultado',resultado)
+        # print('type resultado',type(resultado))
+        return {"elections": True, "data": resultado, "sources": resultado[1]}
 
     except ValueError as ve:
         print(f"Error: {ve}")
         return {"error": str(ve)}
     except Exception as e:
         print(f"Error fetching elections: {e}")
-        return {"error": "An error occurred while fetching elections"}
+        return {"error": f"An error occurred while fetching elections: {e}"}
+    
+def get_full_data_from_candidate(text):
+    try:
+        completion = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {
+                    "role": "system",
+                    "content": text,
+                },
+            ],
+        )
+        data = completion.choices[0].message.content
+        return data
+    except Exception as e:
+        print(f"Error fetching data: {e}")
+        return {"error": f"An error occurred while fetching data: {e}"}

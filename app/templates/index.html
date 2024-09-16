@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- description -->
     <meta name="description" content="KNOW YOUR CANDIDATES, LEAD THE CHANGE." />
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.0/dist/ethers.umd.min.js"></script>
     <link
       rel="icon"
       type="image/png"
@@ -62,12 +63,43 @@
         </div>
       </div>
     </div>
+    <!-- modal disclaimer -->
+    <div
+      id="modal"
+      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+    >
+      <div class="bg-white rounded-lg shadow-lg w-11/12 sm:w-96 p-6">
+        <div class="text-center">
+          <h2 class="text-2xl font-semibold text-gray-900">Beware!</h2>
+        </div>
+        <div class="mt-4 text-gray-600">
+          <p>
+            This is a experimental tool in beta phase. Understanding how it
+            works and its potential flaws is crucial for effective use. It’s
+            your responsibility to check these details to avoid mistakes and
+            optimize results, as well as double-checking all information you
+            find here.
+          </p>
+        </div>
+        <div
+          class="mt-6 bg-gray-50 px-4 py-3 sm:flex sm:justify-center sm:px-6"
+        >
+          <button
+            type="button"
+            class="inline-flex w-full justify-center rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 sm:ml-3 sm:w-auto"
+            onclick="closeModal()"
+          >
+            I understand &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
     <!-- Modal Country -->
     <div
       id="countryModal"
       class="fixed inset-0 bg-gray-600 min-h-screen bg-opacity-50 hidden justify-center items-center"
     >
-      <div class="p-5 rounded-lg shadow-lg m-auto bg-white w-[800px]">
+      <div class="p-5 rounded-lg shadow-lg m-auto bg-white w-[500px]">
         <div class="flex justify-between items-center mb-5 gap-5">
           <div id="modalTitle" class="flex items-center w-full gap-5">
             Country Details
@@ -81,8 +113,11 @@
         </div>
       </div>
     </div>
-    <footer class="flex flex-col items-center gap-2 w-full bg-white bottom-0">
-      <div class="flex gap-2 items-center justify-between p-2">
+    <footer class="flex flex-col items-center gap-2 w-full bg-white m-4">
+      <div
+        class="flex gap-2 items-center justify-between p-2"
+        id="donateButton"
+      >
         <a
           class="bg-blue-500 hover:bg-blue-600 text-white flex font-bold rounded items-center p-2"
           href="#"
@@ -143,6 +178,74 @@
       </div>
     </footer>
   </body>
+  <!-- script donate -->
+  <script>
+    var MY_ADDRESS = '{{ wallet_address }}';
+    var tipButton = document.querySelector('#donateButton');
+
+    tipButton.addEventListener('click', async function () {
+      if (typeof window.ethereum === 'undefined') {
+        throw new Error('MetaMask is not installed');
+      }
+      await sendDonation();
+    });
+
+    async function connectMetaMask() {
+      if (window.ethereum) {
+        try {
+          // Solicita ao usuário para conectar suas contas do MetaMask
+          const accounts = await ethereum.request({
+            method: 'eth_requestAccounts',
+          });
+          return accounts[0]; // Retorna o endereço da conta conectada
+        } catch (error) {
+          console.error('Erro ao conectar ao MetaMask:', error);
+        }
+      } else {
+        alert(
+          'MetaMask não está instalado. Por favor, instale-o para continuar.'
+        );
+      }
+    }
+
+    async function sendDonation() {
+      const recipientAddress = MY_ADDRESS; // Substitua pelo endereço da carteira de destino
+      const amountInEth = '0.01'; // Valor da doação em ETH (0.01 ETH neste exemplo)
+
+      const account = await connectMetaMask();
+      if (!account) {
+        return;
+      }
+
+      try {
+        const transactionParameters = {
+          to: recipientAddress,
+          from: account,
+          value: ethers.utils.parseUnits(amountInEth, 'ether').toHexString(),
+        };
+
+        // Envia a transação usando MetaMask
+        const txHash = await ethereum.request({
+          method: 'eth_sendTransaction',
+          params: [transactionParameters],
+        });
+
+        console.log('Transação enviada! Hash:', txHash);
+      } catch (error) {
+        console.error('Erro ao enviar a doação:', error);
+      }
+    }
+
+    function renderMessage(message) {
+      var messageEl = document.querySelector('.message');
+      messageEl.innerHTML = message;
+    }
+  </script>
+  <script>
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+  </script>
   <script>
     function openModal() {
       const countryModal = document.getElementById('countryModal');
@@ -179,15 +282,18 @@
         fetch(`/elections/${country.label}/${country.id}/`)
           .then((response) => response.json())
           .then((data) => {
-            console.log('data', data.elections);
+            if (data.elections == 'Non-democratic') {
+              modalContent.innerHTML = data.data;
+              return;
+            }
             if (data.elections == false) {
-              console.log('is here');
               let content = `<p>There are no upcoming elections based on our research with chatgpt .</p>`;
               if (Array.isArray(data.sources)) {
                 data.sources.forEach((source) => {
                   content += `<a href="${source}" target="_blank" style="color: rgb(59 130 246);">[*]</a>`;
                 });
               } else if (typeof data.sources === 'string') {
+
                 const sourcesArray = data.sources.split(',');
                 sourcesArray.forEach((source) => {
                   content += `<a href="${source.trim()}" target="_blank style="color: rgb(59 130 246);">[*]</a>`;
@@ -197,10 +303,8 @@
                 modalContent.innerHTML = `<p>No upcoming elections.</p>`;
               }
               modalContent.innerHTML = content;
-              console.log('aqui é pra finalizar o false');
               return;
             }
-            console.log('true');
             let content = `<ul class="flex flex-col gap-2 mb-2">`;
             data.data.forEach((election) => {
               content += `<a href="/election/${election.id}"><li class="p-4 border border-black rounded">${election.election_type}: ${election.date}</li></a>`;
