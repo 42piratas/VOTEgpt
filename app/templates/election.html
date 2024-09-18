@@ -10,15 +10,15 @@
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="../static/favicon-32x32.png"
+      href="../../static/favicon-32x32.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="../static/favicon-16x16.png"
+      href="../../static/favicon-16x16.png"
     />
-    <link rel="manifest" href="../static/site.webmanifest" />
+    <link rel="manifest" href="../../static/site.webmanifest" />
     <link
       href="{{url_for('static',filename='css/main.css')}}"
       rel="stylesheet"
@@ -50,40 +50,72 @@
             {{election.election_type}} {{election.election_date}}
           </span>
         </div>
-        {% if election.candidate %}
+        {% if election.candidates %}
         <div
           class="grid gap-8 md:grid-cols-2 lg:grid-cols-4 lg:overflow-auto px-20 md:px-20 md:py-10"
         >
-          {% for candidate in election.candidate %}
+          {% for candidate in election.candidates %}
           <div
             class="group relative cursor-pointer overflow-hidden bg-white px-2 pt-6 pb-4 shadow-2xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10"
           >
-            <a href="/candidate/{{candidate.id}}">
+            <a href="/candidate/{{ candidate.id }}">
+              <!-- Candidate Image -->
+              {% if candidate.image %}
               <img
                 class="object-cover object-top w-full rounded-2xl aspect-[14/13] mx-auto"
-                src="{{candidate.image}}"
-                alt="{{candidate.name}}"
-                title="{{candidate.name}}"
+                src="{{ candidate.image }}"
+                alt="{{ candidate.name }}"
+                title="{{ candidate.name }}"
                 style="width: 300px"
               />
+              {% else %}
+              <!-- Placeholder Image -->
+              <img
+                class="object-cover object-top w-full rounded-2xl aspect-[14/13] mx-auto"
+                src="{{ url_for('static', filename='images/placeholder.png') }}"
+                alt="{{ candidate.name }}"
+                title="{{ candidate.name }}"
+                style="width: 300px"
+              />
+              {% endif %}
+
               <h3 class="text-lg mt-1 tracking-tight font-semibold">
-                {{candidate}}
+                {{ candidate.name }}
               </h3>
               <div
                 class="text-base leading-7 text-gray-600 transition-all duration-300"
               >
-                <p class="text-base text-gray-400">
-                </p>
+                <!-- Known As -->
+                {% if candidate.known_as and candidate.known_as != 'Unknown' %}
                 <p class="text-sm text-gray-700">
-                  <strong>Platform:</strong> Platform
+                  <strong>Known as:</strong> {{ candidate.known_as }}
                 </p>
+                {% endif %}
+
+                <!-- Keywords -->
+                {% if candidate.keywords %}
                 <p class="text-sm text-gray-700">
-                  <strong>Keywords:</strong> {{candidate.keywords}}
+                  <strong>Keywords:</strong>
+                  {% for keyword in candidate.keywords %} {{ keyword }}{% if not
+                  loop.last %}, {% endif %} {% endfor %}
                 </p>
+                {% endif %}
+
+                <!-- Platform -->
+                {% if candidate.platform %}
+                <p class="text-sm text-gray-700">
+                  <strong>Platform:</strong>
+                  {% for item in candidate.platform %} {{ item }}{% if not
+                  loop.last %}, {% endif %} {% endfor %}
+                </p>
+                {% endif %}
               </div>
               <div class="text-base font-semibold leading-7">
                 <p>
-                  <a href="#" class="text-sky-500 transition-all duration-300">
+                  <a
+                    href="/candidate/{{ candidate.id }}"
+                    class="text-sky-500 transition-all duration-300"
+                  >
                     Read more &rarr;
                   </a>
                 </p>

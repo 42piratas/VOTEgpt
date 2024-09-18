@@ -147,7 +147,6 @@ def get_candidate_by_country_and_election(election):
     try:
         existing_candidates = Candidate.query.filter_by(election_id=election.id).all()
         if existing_candidates:
-            # Se houver candidatos na base de dados, retornamos os dados com as informações relevantes
             candidates_data = [
                 {
                     "id": candidate.id,
@@ -210,8 +209,6 @@ def get_candidate_by_country_and_election(election):
                 "sources": ["IFES", "ElectionGuide.org", "IPU", "International IDEA"]
             }
         resultado = ast.literal_eval(data)
-        # print('resultado',resultado)
-        # print('type resultado',type(resultado))
         return {"elections": True, "data": resultado, "sources": resultado[1]}
 
     except ValueError as ve:

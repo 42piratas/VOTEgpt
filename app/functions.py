@@ -44,8 +44,6 @@ def insert_election(election_type, election_date, country_id):
     
 def get_elections_by_id(election_id):
     try:
-        # Fetch election data by ID
-        # Querying election and related country data
         election = db.session.query(ElectionData).join(Country).filter(ElectionData.id == election_id).first()
         candidate = get_candidate_by_country_and_election(election)
         candidate_full_data = []
@@ -55,14 +53,53 @@ def get_elections_by_id(election_id):
                 "named {candidate_name} from {country}. "
                 "Include the following details and return 'Unknown' for any information that is not available. "
                 "Format the response as follows: "
-                "{{'born': [location, date, age] | 'Unknown', 'nationality': [nationality(ies)] | 'Unknown', "
+                "{{'name': [fullname], 'known_as': [known as],'born': [location, date, age] | 'Unknown', 'nationality': [nationality(ies)] | 'Unknown', "
                 "'religion': Religion | 'Unknown', 'education': [education] | 'Unknown', "
                 "'current-party': [current-party] | 'Unknown', 'previous-party(ies)': [previous-party(ies)] | 'Unknown', "
+                "'abortion': 'Policy on abortion (140 characters max)', "
+                "'health-care': 'Policy on health-care (140 characters max)', "
+                "'economy': 'Policy on economy (140 characters max)', "
+                "'immigration': 'Policy on immigration (140 characters max)', "
+                "'gun-control': 'Policy on gun-control (140 characters max)', "
+                "'gun-control-short': 'supportive | opposed | neutral | ambiguous | unknown', "
+                "'climate-change': 'Policy on climate-change (140 characters max)', "
+                "'education-policy': 'Policy on education (140 characters max)', "
+                "'taxes': 'Policy on taxes (140 characters max)', "
+                "'lgbtq-rights': 'Policy on lgbtq-rights (140 characters max)', "
+                "'lgbtq-rights-short': 'supportive | opposed | neutral | ambiguous | unknown', "
+                "'foreign-policy': 'Policy on foreign-policy (140 characters max)', "
+                "'drug-policy': 'Policy on drug-policy (140 characters max)', "
+                "'criminal-justice-reform': 'Policy on criminal-justice-reform (140 characters max)', "
+                "'military-spending': 'Policy on military-spending (140 characters max)', "
+                "'voting-rights': 'Policy on voting-rights (140 characters max)' "
+                "The 'biography' should be limited to 420 characters. "
+                "'mini-biography' and 'criminal-records' should be limited to 140 characters. "
+                "'platform' and 'notorious-for' should be concise, described only through keywords, straightforward expressions, "
+                "and/or very short, objective sentences, with a maximum list of 05 itens for each. "
+                "Always avoid redundancies. Format the response as follows: "
+                "[{{ 'biography': '<biography> (420 characters max)>' , "
+                "'mini-biography': '<mini-biography> (140 characters max)>' , "
+                "'platform': ['', '', ... (05 itens max)] , "
+                "'criminal-records': '<criminal-records> (140 characters max)>' , "
+                "'notorious-for': ['', '', ... (05 itens max)] , "
+                "'keywords': ['', '', ... (05 itens max)] }} , "
                 "'political-experience': [political role (1999-2099)] | 'Unknown', 'endorsements': [endorsements] | 'Unknown', "
                 "'funding-sources': [funding-sources] | 'Unknown'}}, ['SOURCE's URL 1', ..., 'SOURCE's URL N']]."
             ).format(candidate_name=candidate, country=election.country.label)
             candidate_data = get_full_data_from_candidate(candidate_profile_a)
+            # print(candidate_data)
             candidate_full_data.append(candidate_data)
+
+            # if candidate_data:
+            #     # Optionally assign an ID if not present
+            #     candidate_data['id'] = candidate_id
+            #     candidate_id += 1
+
+            #     candidate_full_data.append(candidate_data)
+            # else:
+            #     print(f"Failed to retrieve data for candidate: {candidate}")
+
+
         if not candidate:
             election_data = {
                 'id': election.id,
@@ -75,12 +112,10 @@ def get_elections_by_id(election_id):
                             },
                 'sources': election.sources,
             }
-            
             # Return the election data
             return election_data
         # candidate = Candidate.query.filter_by(election_id=election.id).first()
         # print(candidate)
-    
         # Serialize data to JSON
         election_data = {
             'id': election.id,

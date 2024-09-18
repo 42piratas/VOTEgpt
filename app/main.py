@@ -44,19 +44,19 @@ def getElections(country, country_id):
 def getElection(election_id):
     wallet_address = config('WALLET_ADDRESS')
     election = get_elections_by_id(election_id)
-    print("election", election)
+    #print type of election
+    print(election)
     return render_template("election.html", election=election, wallet_address=wallet_address)
 
 # @app.route("/candidate/<string:election_id>")
 # def getCandidatesByElction(election_id):
-    
-    
+#     # get_candidate_by_country_and_election(election_id)
 #     return candidates
 
-@app.route("/candidate/<string:candidate_id>/")
-def getCandidate(candidate_id):
-    candidate = get_candidate_by_id(candidate_id)
-    return render_template("candidate.html", candidate=candidate)
+# @app.route("/candidate/<string:candidate_id>/")
+# def getCandidate(candidate_id):
+#     candidate = get_candidate_by_id(candidate_id)
+#     return render_template("candidate.html", candidate=candidate)
 
 if __name__ == "__main__":
     app.run(debug=True)
