@@ -51,7 +51,6 @@ class Candidate(db.Model):
     gun_control = db.Column(db.String(140))
     gun_control_short = db.Column(db.String(20))
     climate_change = db.Column(db.String)
-    education = db.Column(db.String)
     taxes = db.Column(db.String)
     lgbtq_rights = db.Column(db.String(140))
     lgbtq_rights_short = db.Column(db.String(20))
