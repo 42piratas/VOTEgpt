@@ -3,8 +3,9 @@ from chatgpt.requests import get_country_elections, verify_democratic
 from database.db_setup import db
 from decouple import config
 from flask_migrate import Migrate
-from functions import get_candidate_by_id, get_countries, get_elections_by_id
+from functions import get_candidate_by_id, get_countries, get_elections_by_id, insert_candidate_in_database
 from openai import OpenAI
+import json
 
 app = Flask(__name__)
 client = OpenAI(
@@ -44,8 +45,19 @@ def getElections(country, country_id):
 def getElection(election_id):
     wallet_address = config('WALLET_ADDRESS')
     election = get_elections_by_id(election_id)
-    #print type of election
-    print(election)
+    # print(type(election))
+    for index, candidate_str in enumerate(election['candidate']):
+        try:
+        # Converter string JSON para objeto Python
+            # election['candidate'][index] = json.loads(candidate_str.replace("'", '"'))
+            if isinstance(election['candidate'], str):
+                election['candidate'] = json.loads(candidate_str.replace("'", '"'))
+            election['candidate'] = election['candidate']
+            print(type(election['candidate']))
+            insert_candidate_in_database(election['candidate'], election_id)
+        except json.JSONDecodeError as e:
+            print(f"Erro ao decodificar JSON para o candidato {index}: {e}")
+            election['candidate'] = []
     return render_template("election.html", election=election, wallet_address=wallet_address)
 
 # @app.route("/candidate/<string:election_id>")

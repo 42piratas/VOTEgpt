@@ -60,4 +60,5 @@ class Candidate(db.Model):
     military_spending = db.Column(db.String)
     voting_rights = db.Column(db.String)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
+    sources = db.Column(db.String)
     election_id = db.Column(db.Integer, db.ForeignKey('elections_data.id'), nullable=False)

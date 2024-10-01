@@ -181,16 +181,18 @@ def get_candidate_by_country_and_election(election):
                     "criminal_justice_reform": candidate.criminal_justice_reform,
                     "military_spending": candidate.military_spending,
                     "voting_rights": candidate.voting_rights,
+                    "sources": candidate.sources.split(",") if candidate.sources else []
                 }
                 for candidate in existing_candidates
             ]
+            print('candidates_data:',candidates_data)
             return {
                 "candidates": True,
                 "data": candidates_data,
                 "sources": candidates_data[0]["sources"] if candidates_data else []
             }
         content_message = f'Please, provide a list of the full names of all candidates participating in the upcoming {election.election_type} elections in {election.country.label} in {election.election_date}. Format the response as follows: ["{election.country.label}", "{election.election_type}", "{election.election_date}", ["Full Name 1", "Full Name 2", ..., "Full Name N"], ["Source 1s URL", ..., "Source Ns URL"]]. Include only the candidates full names and the sources in the list. If there ar no elections schedule to {election.country.label}, return only "FALSE" and the sources, formatted as [FALSE, ["Source 1s URL", ..., "Source Ns URL"]]. {sources_reliable}'
-
+        print('content_message:', content_message)
         # If there is no data, perform a query on ChatGPT
         completion = client.chat.completions.create(
             model="gpt-4o-mini",
@@ -201,8 +203,9 @@ def get_candidate_by_country_and_election(election):
                 },
             ],
         )
+        print('completion:', completion)
         data = completion.choices[0].message.content
-        # print('return candidate from chatgpt:',data)
+        print('return candidate from chatgpt:',data)
         if 'FALSE' in data:
             return {
                 "elections": False,

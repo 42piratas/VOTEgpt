@@ -1,6 +1,8 @@
+import json
 from chatgpt.requests import get_candidate_by_country_and_election, get_full_data_from_candidate
 from database.db_setup import db
 from database.models import Candidate, Country, ElectionData
+from datetime import datetime
 
 def get_countries():
     try:
@@ -23,14 +25,6 @@ def get_countries():
         return []
     
 def insert_election(election_type, election_date, country_id):
-    """
-    Inserts a new election data entry into the ElectionData table.
-    
-    :param type_election: Type of elecion (e.g., presidential, state)
-    :param election_date: Election date (object datetime.date)
-    :param country_id: ID of the country to which the election data refers
-    :return: The new ElectionData object if successful, None otherwise
-    """
     try:
         new_election = ElectionData(election_type=election_type, election_date=election_date, country_id=country_id)
         db.session.add(new_election)
@@ -86,6 +80,7 @@ def get_elections_by_id(election_id):
                 "'political-experience': [political role (1999-2099)] | 'Unknown', 'endorsements': [endorsements] | 'Unknown', "
                 "'funding-sources': [funding-sources] | 'Unknown'}}, ['SOURCE's URL 1', ..., 'SOURCE's URL N']]."
             ).format(candidate_name=candidate, country=election.country.label)
+            # print("Candidate Profile A: ", candidate_profile_a)
             candidate_data = get_full_data_from_candidate(candidate_profile_a)
             # print(candidate_data)
             candidate_full_data.append(candidate_data)
@@ -99,7 +94,7 @@ def get_elections_by_id(election_id):
             # else:
             #     print(f"Failed to retrieve data for candidate: {candidate}")
 
-
+        print(candidate_full_data)
         if not candidate:
             election_data = {
                 'id': election.id,
@@ -133,7 +128,20 @@ def get_elections_by_id(election_id):
         return election_data
     except Exception as e:
         print(f"Error fetching election {election_id}: {e}")
-        return {}
+        election_data = {
+            'id': election.id,
+            'election_type': election.election_type,
+            'election_date': election.election_date,
+            'country': {
+                            'id': election.country_id,
+                            'label': election.country.label,
+                            'code': election.country.code,
+                        },
+            'candidate': candidate_full_data,
+            'sources': election.sources,
+        }
+        # Return the election data
+        return election_data
     
 def get_candidate_by_id(candidate_id):
     try:
@@ -186,3 +194,60 @@ def get_candidate_by_id(candidate_id):
     except Exception as e:
         print(f"Error fetching candidate {candidate_id}: {e}")
         return {"candidates": False, "data": [], "sources": []}
+    
+def insert_candidate_in_database(candidate_data, election_id):
+    # print(candidate_data)
+    # if election["candidate"] is string, convert it to a list of dictionaries
+    # print("candidate_data", candidate_data)
+    # print("type of candidate_data", type(candidate_data)) # <class 'list'>
+    if isinstance(candidate_data, str):
+        candidate_data = json.loads(candidate_data.replace("'", '"'))
+        
+    # Assuming election['candidate'] has already been transformed into JSON objects
+    for candidate_data in candidate_data:
+        
+        print("candidate_data in for", candidate_data)
+        print("type of candidate_data in for", type(candidate_data)) # <class 'str'>
+        if isinstance(candidate_data, str):
+            candidate_data = json.loads(candidate_data.replace("'", '"'))
+        candidate = Candidate(
+            name=candidate_data.get('name'),
+            known_as=candidate_data.get('known_as'),
+            born=", ".join([str(item) for item in candidate_data.get('born', [])]),
+            nationality=", ".join(candidate_data.get('nationality', [])),
+            religion=candidate_data.get('religion', 'unknown'),
+            education=", ".join(candidate_data.get('education', [])),
+            bio=candidate_data.get('biography', '')[:420],
+            current_party=candidate_data.get('current-party'),
+            previous_parties=", ".join(candidate_data.get('previous-party(ies)', [])),
+            platform=", ".join(candidate_data.get('platform', [])),
+            keywords=", ".join(candidate_data.get('keywords', [])),
+            political_experience=", ".join(candidate_data.get('political-experience', [])),
+            notorious_for=", ".join(candidate_data.get('notorious-for', [])),
+            endorsements=candidate_data.get('endorsements', 'unknown'),
+            funding_sources=candidate_data.get('funding-sources', 'unknown'),
+            criminal_records=candidate_data.get('criminal-records', 'unknown'),
+            abortion=candidate_data.get('abortion', 'unknown'),
+            health_care=candidate_data.get('health-care', 'unknown'),
+            economy=candidate_data.get('economy', 'unknown'),
+            immigration=candidate_data.get('immigration', 'unknown'),
+            gun_control=candidate_data.get('gun-control', 'unknown'),
+            gun_control_short=candidate_data.get('gun-control-short', 'unknown'),
+            climate_change=candidate_data.get('climate-change', 'unknown'),
+            taxes=candidate_data.get('taxes', 'unknown'),
+            lgbtq_rights=candidate_data.get('lgbtq-rights', 'unknown'),
+            lgbtq_rights_short=candidate_data.get('lgbtq-rights-short', 'unknown'),
+            foreign_policy=candidate_data.get('foreign-policy', 'unknown'),
+            drug_policy=candidate_data.get('drug-policy', 'unknown'),
+            criminal_justice_reform=candidate_data.get('criminal-justice-reform', 'unknown'),
+            military_spending=candidate_data.get('military-spending', 'unknown'),
+            voting_rights=candidate_data.get('voting-rights', 'unknown'),
+            updated_at=datetime.utcnow(),
+            election_id=election_id
+        )
+
+        # Adicionar a instância à sessão do banco de dados
+        db.session.add(candidate)
+
+    # Persistir todos os candidatos no banco de dados
+    db.session.commit()

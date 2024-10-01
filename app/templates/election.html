@@ -2,7 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    {%if election.country %}
     <title>VoteGPT - {{election.country.label}} Election</title>
+    {%else%}
+    <title>VoteGPT - Election</title>
+    {%endif%}
     <!-- description -->
     <meta name="description" content="KNOW YOUR CANDIDATES, LEAD THE CHANGE." />
     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.0/dist/ethers.umd.min.js"></script>
@@ -44,17 +48,19 @@
               title="{{election.country.label}} flag"
               style="width: 70px"
             />
+            {% if election.country %}
             <span class="text-5xl">{{election.country.label}}</span>
+            {%endif%}
           </div>
           <span class="text-xl mt-2">
             {{election.election_type}} {{election.election_date}}
           </span>
         </div>
-        {% if election.candidates %}
+        {% if election.candidate %}
         <div
           class="grid gap-8 md:grid-cols-2 lg:grid-cols-4 lg:overflow-auto px-20 md:px-20 md:py-10"
         >
-          {% for candidate in election.candidates %}
+          {% for candidate in election['candidate'] %}
           <div
             class="group relative cursor-pointer overflow-hidden bg-white px-2 pt-6 pb-4 shadow-2xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10"
           >
@@ -72,7 +78,7 @@
               <!-- Placeholder Image -->
               <img
                 class="object-cover object-top w-full rounded-2xl aspect-[14/13] mx-auto"
-                src="{{ url_for('static', filename='images/placeholder.png') }}"
+                src="{{ url_for('static', filename='images/candidates/placeholder.png') }}"
                 alt="{{ candidate.name }}"
                 title="{{ candidate.name }}"
                 style="width: 300px"
